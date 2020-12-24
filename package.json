@@ -1,0 +1,17 @@
+
+{
+  "name": "node_bird",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "yoonsky <yoonsky717@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "concurrently": "^5.3.0",
+    "nodemon": "^2.0.6"
+  },
+  "scripts": {
+    "client": "cd client && yarn dev",
+    "server": "cd server && yarn start",
+    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
+  }
+}
