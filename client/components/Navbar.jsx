@@ -116,7 +116,12 @@ const Navbar = () => {
                   <Flex alignItems="center" padding="2px 0px" key={index}>
                     <Link href={`/profile/${item.id}`}>
                       <a>
-                        <Avatar name={item.nickname} size="sm" bg="blue.500" />
+                        <Avatar
+                          onClick={onClose}
+                          name={item.nickname}
+                          size="sm"
+                          bg="blue.500"
+                        />
                       </a>
                     </Link>
                     <Input

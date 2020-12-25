@@ -41,6 +41,7 @@ export default function User() {
     (state) => state.post
   );
 
+  console.log(userInfo);
   useEffect(() => {
     function onScroll() {
       if (
@@ -163,7 +164,13 @@ export default function User() {
             </Tabs>
           </>
         ) : (
-          <div>존재하지 않는 계정입니다.</div>
+          <Box marginTop="40px" position="relative">
+            <img
+              position="absolute"
+              style={{ width: "500px" }}
+              src="https://i.ibb.co/LtTRsLH/ogosd.jpg"
+            />
+          </Box>
         )}
       </Layout>
       {/* 익스플로어 페이지는 모든 사람들의 게시물을 볼 수 있고 해시태그 검색이 가능 */}

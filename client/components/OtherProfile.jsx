@@ -26,7 +26,8 @@ const OtherProfile = ({ userInfo, id }) => {
   const { me } = useSelector((state) => state.user);
 
   console.log("userInfo", userInfo);
-  console.log("id", id);
+
+  const { nickname, greet, Followers, Followings } = userInfo;
 
   const isFollowing = me?.Followings.findIndex(
     (user) => user.id === userInfo.id
@@ -71,13 +72,8 @@ const OtherProfile = ({ userInfo, id }) => {
       width="100%"
     >
       <Flex padding="15px 10px" alignItems="center">
-        <Avatar
-          name={userInfo.nickname}
-          size="sm"
-          bg="blue.500"
-          margin="0 6px"
-        />
-        <Text fontWeight="bold">{userInfo.nickname}</Text>
+        <Avatar name={nickname} size="sm" bg="blue.500" margin="0 6px" />
+        <Text fontWeight="bold">{nickname}</Text>
         <Spacer />
         <IconButtons onClick={onOpen} icon={<HiDotsVertical />} />
       </Flex>
@@ -92,18 +88,18 @@ const OtherProfile = ({ userInfo, id }) => {
         </Center> */}
       </Box>
       <Flex padding="20px" alignItems="center">
-        <Text fontWeight="bold">{userInfo.greet}</Text>
+        <Text fontWeight="bold">{greet}</Text>
         {/* 좋아요 숫자 */}
 
         <Spacer />
 
         <Stat textAlign="right">
           <StatLabel>Follower</StatLabel>
-          <StatNumber>{userInfo.Followers}</StatNumber>
+          <StatNumber>{Followers.length}</StatNumber>
         </Stat>
         <Stat textAlign="right">
           <StatLabel>Following</StatLabel>
-          <StatNumber>{userInfo.Followings}</StatNumber>
+          <StatNumber>{Followings.length}</StatNumber>
         </Stat>
       </Flex>
 

@@ -7,7 +7,9 @@ const router = express.Router();
 router.get("/:userId", isLoggedIn, async (req, res, next) => {
   try {
     const fullUserWithoutPassword = await User.findOne({
-      where: { id: req.params.userId },
+      // where: { id: req.params.userId },
+
+      where: { id: parseInt(req.params.userId) },
       attributes: {
         exclude: ["password"],
       },
@@ -29,11 +31,12 @@ router.get("/:userId", isLoggedIn, async (req, res, next) => {
       ],
     });
     if (fullUserWithoutPassword) {
-      const data = fullUserWithoutPassword.toJSON();
-      data.Posts = data.Posts.length;
-      data.Followers = data.Followers.length;
-      data.Followings = data.Followings.length;
-      res.status(200).json(data);
+      // const data = fullUserWithoutPassword.toJSON();
+      // data.Posts = data.Posts.length;
+      // data.Followers = data.Followers.length;
+      // data.Followings = data.Followings.length;
+      // res.status(200).json(data);
+      res.status(200).json(fullUserWithoutPassword);
     } else {
       res.status(404).json("존재하지 않는 계정입니다.");
     }
