@@ -32,8 +32,6 @@ const OtherProfile = ({ userInfo }) => {
     (user) => user.id === userInfo.id
   );
 
-  console.log(isFollowing);
-
   const handleUnFollow = () => {
     dispatch({
       type: UNFOLLOW_REQUEST,

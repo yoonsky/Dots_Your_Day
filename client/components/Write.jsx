@@ -15,6 +15,7 @@ import { ImFilePicture } from "react-icons/im";
 import { MdDelete } from "react-icons/md";
 
 import { useDispatch, useSelector } from "react-redux";
+import useInput from "../hooks/useInput";
 import {
   UPLOAD_IMAGES_REQUEST,
   REMOVE_IMAGE,
@@ -28,24 +29,27 @@ const Write = ({ me }) => {
   const toast = useToast();
   const dispatch = useDispatch();
   const { imagePaths, addPostDone } = useSelector((state) => state.post);
+  const imageInput = useRef();
 
-  const [input, setInput] = useState("");
+  console.log(imagePaths.length);
+
+  const [text, setText] = useState("");
 
   useEffect(() => {
     if (addPostDone) {
-      setInput("");
+      setText("");
     }
   }, [addPostDone]);
 
   const handleChange = (e) => {
-    setInput(e.target.value);
+    setText(e.target.value);
   };
 
   const handleClick = useCallback(() => {
-    if (!input || !input.trim()) {
+    if (text === "" || imagePaths.length < 1) {
       return toast({
         title: "warning.",
-        description: "게시글이 작성되지 않았습니다.",
+        description: "사진과 글을 모두 작성해주세요.",
         status: "warning",
         duration: 5000,
         isClosable: true,
@@ -56,7 +60,8 @@ const Write = ({ me }) => {
       imagePaths.forEach((p) => {
         formData.append("image", p);
       });
-      formData.append("content", input);
+      console.log(formData);
+      formData.append("content", text);
 
       dispatch({
         type: ADD_POST_REQUEST,
@@ -64,7 +69,7 @@ const Write = ({ me }) => {
       });
       toast({
         title: "Post Creation Complete.",
-        description: "게시글 작성이 완료되었습니다.",
+        description: "게시글 등록이 완료되었습니다.",
         status: "success",
         duration: 5000,
         isClosable: true,
@@ -72,9 +77,7 @@ const Write = ({ me }) => {
 
       Router.replace("/");
     }
-  }, [input, imagePaths]);
-
-  const imageInput = useRef();
+  }, [text, imagePaths]);
 
   const onClickImageUpload = useCallback(() => {
     imageInput.current.click();
@@ -155,7 +158,7 @@ const Write = ({ me }) => {
           resize="none"
           placeholder="please write your today here"
           onChange={handleChange}
-          value={input}
+          value={text}
         />
         <Button
           onClick={handleClick}

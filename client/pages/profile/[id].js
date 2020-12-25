@@ -157,7 +157,7 @@ export default function User() {
             </Tabs>
           </>
         ) : (
-          <SignIn />
+          <div>존재하지 않는 계정입니다.</div>
         )}
       </Layout>
       {/* 익스플로어 페이지는 모든 사람들의 게시물을 볼 수 있고 해시태그 검색이 가능 */}

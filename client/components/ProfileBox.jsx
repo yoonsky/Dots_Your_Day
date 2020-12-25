@@ -37,12 +37,12 @@ const ProfileBox = ({ me }) => {
   const [inputCheck, setInputCheck] = useState(false);
   const { isOpen, onClose, onOpen } = useDisclosure();
 
-  const handleClick = async (e) => {
+  const handleClick = (e) => {
     const { name } = e.target;
 
     if (input === "") {
       setInputCheck(true);
-      await setTimeout(() => {
+      setTimeout(() => {
         setInputCheck(false);
       }, 6000);
     } else {
@@ -54,17 +54,15 @@ const ProfileBox = ({ me }) => {
         });
 
         changeNicknameDone && //이거 에러날 수 도 있음!!!
-          (await toast({
-            title: "Modification completed.",
-            description: "닉네임 변경이 완료되었습니다.",
-            status: "success",
-            duration: 5000,
-            isClosable: true,
-          }));
-        await setInput("");
-        await setTimeout(() => {
           onClose();
-        }, 2000);
+        toast({
+          title: "Modification completed.",
+          description: "닉네임 변경이 완료되었습니다.",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+        setInput("");
       } else {
         // 인사말 수정을 요청했을 때
         dispatch({
@@ -73,17 +71,15 @@ const ProfileBox = ({ me }) => {
         });
 
         changeGreetDone && //여기도 에러 가능성 다분!
-          (await toast({
-            title: "Modification completed.",
-            description: "인사말 변경이 완료되었습니다.",
-            status: "success",
-            duration: 5000,
-            isClosable: true,
-          }));
-        await setInput("");
-        await setTimeout(() => {
           onClose();
-        }, 2000);
+        toast({
+          title: "Modification completed.",
+          description: "인사말 변경이 완료되었습니다.",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+        setInput("");
       }
     }
   };

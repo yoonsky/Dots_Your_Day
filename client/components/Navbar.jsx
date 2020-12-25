@@ -28,7 +28,7 @@ import {
 
 const Navbar = () => {
   const dispatch = useDispatch();
-  const { me, logoutLoading } = useSelector((state) => state.user);
+  const { me } = useSelector((state) => state.user);
 
   const onLogout = () => {
     console.log("로그아웃!");
@@ -84,7 +84,7 @@ const Navbar = () => {
           </MenuButton>
           <MenuList width="140px">
             <MenuItem>
-              <Link href="/profile">
+              <Link href={`/profile/${me?.id}`}>
                 <a>😊 프로필</a>
               </Link>
             </MenuItem>

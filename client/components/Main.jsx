@@ -139,12 +139,17 @@ const Main = ({ post }) => {
       width="100%"
     >
       <Flex padding="15px 10px" alignItems="center">
-        <Avatar
-          name={post.User.nickname[0]}
-          size="sm"
-          bg="blue.500"
-          margin="0 6px"
-        />
+        <Link href={`/profile/${post.User.id}`}>
+          <a>
+            <Avatar
+              name={post.User.nickname[0]}
+              size="sm"
+              bg="blue.500"
+              margin="0 6px"
+            />
+          </a>
+        </Link>
+
         <Text fontWeight="bold">{post.User.nickname}</Text>
         <Spacer />
         <IconButtons onClick={onOpen} icon={<HiDotsVertical />} />
@@ -154,7 +159,7 @@ const Main = ({ post }) => {
           <Image
             width="100%"
             objectFit="cover"
-            src={`http://localhost:5000/${post?.Images[0].src}`}
+            src={`http://localhost:5000/${post.Images[0].src}`}
           />
         )}
       </Box>
