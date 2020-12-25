@@ -67,6 +67,7 @@ router.post("/", isLoggedIn, upload.none(), async (req, res, next) => {
       include: [
         {
           model: Image,
+          attributes: ["src"],
         },
         {
           model: Comment,
@@ -205,6 +206,7 @@ router.get("/:postId", async (req, res, next) => {
         },
         {
           model: Image,
+          attributes: ["src"],
         },
         {
           model: Comment,

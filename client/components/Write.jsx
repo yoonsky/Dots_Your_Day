@@ -15,7 +15,6 @@ import { ImFilePicture } from "react-icons/im";
 import { MdDelete } from "react-icons/md";
 
 import { useDispatch, useSelector } from "react-redux";
-import useInput from "../hooks/useInput";
 import {
   UPLOAD_IMAGES_REQUEST,
   REMOVE_IMAGE,

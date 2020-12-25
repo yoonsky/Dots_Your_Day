@@ -30,7 +30,7 @@ import { FOLLOW_REQUEST, UNFOLLOW_REQUEST } from "../reducers/user";
 
 const Main = ({ post }) => {
   const toast = useToast();
-  const { removePostLoading } = useSelector((state) => state.post);
+  const { removePostLoading, imagePaths } = useSelector((state) => state.post);
   const { me } = useSelector((state) => state.user);
   const id = me?.id;
 
@@ -159,7 +159,7 @@ const Main = ({ post }) => {
           <Image
             width="100%"
             objectFit="cover"
-            src={`http://localhost:5000/${post.Images[0].src}`}
+            src={`http://localhost:5000/${post?.Images[0]?.src}`}
           />
         )}
       </Box>
@@ -284,4 +284,4 @@ const Main = ({ post }) => {
   );
 };
 
-export default Main;
+export default React.memo(Main);

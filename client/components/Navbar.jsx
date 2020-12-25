@@ -34,7 +34,6 @@ import {
 const Navbar = () => {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.user);
-  console.log(me);
 
   const onLogout = () => {
     console.log("로그아웃!");

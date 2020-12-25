@@ -26,6 +26,7 @@ import {
 
 const ProfileBox = ({ me }) => {
   // userInfo.Posts, Followings Followers nickname
+  console.log(me);
 
   const { changeNicknameDone, changeGreetDone } = useSelector(
     (state) => state.user

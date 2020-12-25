@@ -6,7 +6,6 @@ import {
   TabPanel,
   TabPanels,
   Tabs,
-  Text,
 } from "@chakra-ui/react";
 import Head from "next/head";
 import Layout from "../../components/Layout";
@@ -41,7 +40,7 @@ export default function User() {
     (state) => state.post
   );
 
-  console.log(userInfo);
+  // console.log(userInfo);
   useEffect(() => {
     function onScroll() {
       if (
@@ -123,7 +122,9 @@ export default function User() {
                       {parseInt(id) === me?.id ? (
                         <ProfileBox me={me} />
                       ) : (
-                        <OtherProfile userInfo={userInfo} id={id} />
+                        // <OtherProfile userInfo={userInfo} id={id} />
+
+                        <ProfileBox me={userInfo} />
                       )}
                     </Box>
                   </Flex>

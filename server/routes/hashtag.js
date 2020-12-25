@@ -30,6 +30,7 @@ router.get("/:hashtag", isLoggedIn, async (req, res, next) => {
         },
         {
           model: Image,
+          attributes: ["src"],
         },
         {
           model: Comment,
