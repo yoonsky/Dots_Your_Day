@@ -31,7 +31,7 @@ const Write = ({ me }) => {
   const { imagePaths, addPostDone } = useSelector((state) => state.post);
   const imageInput = useRef();
 
-  console.log(imagePaths.length);
+  // console.log(imagePaths.length);
 
   const [text, setText] = useState("");
 

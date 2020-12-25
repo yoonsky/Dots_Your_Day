@@ -39,6 +39,8 @@ export default function Home() {
     return b[sortingField] - a[sortingField];
   });
 
+  console.log(lastPost.length);
+
   useEffect(() => {
     function onScroll() {
       if (
@@ -70,15 +72,30 @@ export default function Home() {
       {/* 테스트 장소 */}
       <Layout>
         {me ? (
-          <div
-            style={{
-              marginTop: "140px",
-            }}
-          >
-            {lastPost.map((post, index) => (
-              <Main key={index} post={post} />
-            ))}
-          </div>
+          <>
+            {lastPost.length > 0 ? (
+              <div
+                style={{
+                  marginTop: "140px",
+                }}
+              >
+                {lastPost.map((post, index) => (
+                  <Main key={index} post={post} />
+                ))}
+              </div>
+            ) : (
+              <div
+                style={{
+                  marginTop: "140px",
+                }}
+              >
+                <img
+                  style={{ maxWidth: "700px", width: "90%", margin: "auto" }}
+                  src="https://i.ibb.co/P5cPrJT/newnewn.jpg"
+                ></img>
+              </div>
+            )}
+          </>
         ) : (
           <SignIn />
         )}

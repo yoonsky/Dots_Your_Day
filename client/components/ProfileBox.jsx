@@ -108,7 +108,7 @@ const ProfileBox = ({ me }) => {
         <Image
           width="100%"
           objectFit="cover"
-          src="https://i.pinimg.com/736x/68/94/93/6894931eb3e93f6d6ef2dd000d8acdc6.jpg"
+          src="https://i.ibb.co/KKHv5zS/dotdot.jpg"
         />
       </Box>
       <Flex padding="20px" alignItems="center">
