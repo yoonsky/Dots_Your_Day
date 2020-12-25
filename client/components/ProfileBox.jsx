@@ -31,6 +31,7 @@ const ProfileBox = ({ me }) => {
     (state) => state.user
   );
 
+  // console.log(me);
   const dispatch = useDispatch();
   const toast = useToast();
   const [input, setInput] = useState("");

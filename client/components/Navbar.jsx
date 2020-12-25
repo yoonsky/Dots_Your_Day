@@ -10,6 +10,7 @@ import {
   MenuItem,
   MenuList,
   Spacer,
+  Text,
   useDisclosure,
 } from "@chakra-ui/react";
 import { FaCompass, FaUserCircle } from "react-icons/fa";
@@ -18,7 +19,11 @@ import React, { useEffect } from "react";
 import IconButtons from "./IconButtons";
 import ModalBox from "./ModalBox";
 import Link from "next/link";
-import { logoutRequestAction } from "../reducers/user";
+import {
+  FOLLOW_REQUEST,
+  logoutRequestAction,
+  UNFOLLOW_REQUEST,
+} from "../reducers/user";
 
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -29,6 +34,7 @@ import {
 const Navbar = () => {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.user);
+  console.log(me);
 
   const onLogout = () => {
     console.log("로그아웃!");
@@ -44,11 +50,19 @@ const Navbar = () => {
     });
   }, []);
 
-  const Followers = [
-    {
-      nickname: "바보",
-    },
-  ];
+  const handleUnFollow = (id) => {
+    dispatch({
+      type: UNFOLLOW_REQUEST,
+      data: id,
+    });
+  };
+
+  const handleFollow = (id) => {
+    dispatch({
+      type: FOLLOW_REQUEST,
+      data: id,
+    });
+  };
 
   const { isOpen, onClose, onOpen } = useDisclosure();
   return (
@@ -96,24 +110,42 @@ const Navbar = () => {
       <ModalBox
         context={
           <>
-            {/* {me.Followers.map((item, index) => ( */}
-            {Followers.map((item, index) => (
-              <Flex alignItems="center" padding="2px 0px" key={index}>
-                <Avatar name={item.nickname[0]} size="sm" bg="blue.500" />
-                <Input
-                  type="text"
-                  value={item.nickname}
-                  margin="0px 8px"
-                  readOnly
-                />
-                {/* 이 부분 에러날 수 있음 코딩문제로!! */}
-                {/* <Button _hover={{ bg: "#E1341C", color: "white" }}>
-                  {me.Followings.findIndex((user) => user.id === item.id)
-                    ? "팔로잉"
-                    : "팔로우"}
-                </Button> */}
+            {me?.Followers.length > 0 ? (
+              <>
+                {me?.Followers.map((item, index) => (
+                  <Flex alignItems="center" padding="2px 0px" key={index}>
+                    <Avatar name={item.nickname} size="sm" bg="blue.500" />
+                    <Input
+                      type="text"
+                      value={item.nickname}
+                      margin="0px 8px"
+                      readOnly
+                    />
+                    {/* 이 부분 에러날 수 있음 코딩문제로!! */}
+                    <>
+                      {me?.Followings.findIndex(
+                        (user) => user.id === item.id
+                      ) === 0 ? (
+                        <Button onClick={() => handleUnFollow(item.id)}>
+                          언팔로우
+                        </Button>
+                      ) : (
+                        <Button onClick={() => handleFollow(item.id)}>
+                          팔로우
+                        </Button>
+                      )}
+                    </>
+                  </Flex>
+                ))}
+              </>
+            ) : (
+              <Flex flexDirection="column" alignItems="center" padding="20px">
+                <Text fontWeight="bold">아직 팔로우가 없어요.</Text>
+                <Text fontWeight="bold">
+                  다른 유저와 팔로우를 맺어보세요 😊
+                </Text>
               </Flex>
-            ))}
+            )}
           </>
         }
         isOpen={isOpen}
