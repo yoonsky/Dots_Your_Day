@@ -44,19 +44,6 @@ router.get("/:userId/posts", isLoggedIn, async (req, res, next) => {
           as: "Likers",
           attributes: ["id", "nickname", "greet"],
         },
-        {
-          model: Post,
-          as: "Retweet",
-          include: [
-            {
-              model: User,
-              attributes: ["id", "nickname", "greet"],
-            },
-            {
-              model: Image,
-            },
-          ],
-        },
       ],
     });
     res.status(200).json(posts);

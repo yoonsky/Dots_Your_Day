@@ -23,9 +23,6 @@ import {
   UPLOAD_IMAGES_REQUEST,
   UPLOAD_IMAGES_SUCCESS,
   UPLOAD_IMAGES_FAILURE,
-  RETWEET_REQUEST,
-  RETWEET_SUCCESS,
-  RETWEET_FAILURE,
   LOAD_POST_REQUEST,
   LOAD_POST_SUCCESS,
   LOAD_POST_FAILURE,
@@ -197,27 +194,6 @@ function* addComment(action) {
   }
 }
 
-function retweetAPI(data) {
-  return axios.post(`/post/${data}/retweet`);
-}
-
-function* retweet(action) {
-  try {
-    const result = yield call(retweetAPI, action.data);
-    // yield delay(1000);
-    yield put({
-      type: RETWEET_SUCCESS,
-      data: result.data,
-    });
-  } catch (err) {
-    console.error(err);
-    yield put({
-      type: RETWEET_FAILURE,
-      error: err.response.data,
-    });
-  }
-}
-
 function uploadImagesAPI(data) {
   return axios.post(`/post/images`, data);
 }
@@ -309,10 +285,6 @@ function* watchUploadImages() {
   yield takeLatest(UPLOAD_IMAGES_REQUEST, uploadImages);
 }
 
-function* watchRetweet() {
-  yield takeLatest(RETWEET_REQUEST, retweet);
-}
-
 function* watchLoadPosts() {
   yield throttle(3000, LOAD_POSTS_REQUEST, loadPosts);
 }
@@ -337,6 +309,5 @@ export default function* postSaga() {
     fork(watchRemovePost),
     fork(watchLikePost),
     fork(watchUnlikePost),
-    fork(watchRetweet),
   ]);
 }

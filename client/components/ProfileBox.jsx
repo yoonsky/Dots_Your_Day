@@ -114,9 +114,6 @@ const ProfileBox = ({ me }) => {
           objectFit="cover"
           src="https://i.pinimg.com/736x/68/94/93/6894931eb3e93f6d6ef2dd000d8acdc6.jpg"
         />
-        {/* <Center>
-          <OtherSaves />
-        </Center> */}
       </Box>
       <Flex padding="20px" alignItems="center">
         <Text fontWeight="bold">{me.greet}</Text>

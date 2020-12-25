@@ -20,12 +20,12 @@ export default function Explore() {
   const [input, setInput] = useState("");
   const { me } = useSelector((state) => state.user);
 
-  const {
-    mainPosts,
-    hasMorePosts,
-    loadPostsLoading,
-    // retweetError,
-  } = useSelector((state) => state.post);
+  const { mainPosts, hasMorePosts, loadPostsLoading } = useSelector(
+    (state) => state.post
+  );
+
+  console.log(me);
+  console.log(mainPosts);
 
   const handleSearch = () => {
     Router.push(`/hashtag/${input}`);

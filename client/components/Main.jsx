@@ -38,6 +38,8 @@ const Main = ({ post }) => {
     (user) => user.id === post.User.id
   );
 
+  console.log(isFollowing);
+
   const [input, setInput] = useState("");
   const [focus, setFocus] = useState(false);
   const { isOpen, onClose, onOpen } = useDisclosure();
@@ -154,7 +156,7 @@ const Main = ({ post }) => {
           <Image
             width="100%"
             objectFit="cover"
-            src={`http://localhost:5000/${post.Images[0].src}`}
+            src={`http://localhost:5000/${post?.Images[0].src}`}
           />
         )}
       </Box>
@@ -238,7 +240,7 @@ const Main = ({ post }) => {
               </>
             ) : (
               <>
-                {isFollowing ? (
+                {isFollowing === -1 ? (
                   <Button
                     onClick={handleFollow}
                     name="follow"

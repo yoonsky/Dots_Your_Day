@@ -95,7 +95,7 @@ export default function Profile() {
                     {/* <Box position="absolute"> */}
                     {/* 여기서 내 게시글만 가져와서 뿌려줘야 함 */}
 
-                    {me?.posts?.map((post, index) => (
+                    {me.posts?.map((post, index) => (
                       <Main key={index} post={post} />
                     ))}
                   </Box>

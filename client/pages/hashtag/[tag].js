@@ -16,12 +16,9 @@ const Hashtag = () => {
   const router = useRouter();
   const { tag } = router.query;
 
-  const {
-    mainPosts,
-    hasMorePosts,
-    loadPostsLoading,
-    // retweetError,
-  } = useSelector((state) => state.post);
+  const { mainPosts, hasMorePosts, loadPostsLoading } = useSelector(
+    (state) => state.post
+  );
 
   useEffect(() => {
     function onScroll() {

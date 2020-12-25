@@ -15,25 +15,29 @@ export default function Home() {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.user);
 
-  console.log(me);
-  const {
-    mainPosts,
-    hasMorePosts,
-    loadPostsLoading,
-    // retweetError,
-  } = useSelector((state) => state.post);
-
-  console.log(mainPosts);
-
-  const filteredPosts = mainPosts.filter(
-    (item) => item.User.id === me?.Followings.id || item.User.id === me?.id
+  const { mainPosts, hasMorePosts, loadPostsLoading } = useSelector(
+    (state) => state.post
   );
 
-  // useEffect(() => { 임시
-  //   if (retweetError) {
-  //     alert(retweetError);
-  //   }
-  // }, [retweetError]);
+  let followPost = [];
+
+  me?.Followings.forEach((user) => {
+    followPost.push(mainPosts.filter((item) => item.User.id === user.id));
+  });
+
+  const myPost = mainPosts.filter((item) => item.User.id === me?.id);
+
+  let lastPost = [];
+  followPost.forEach((item) => {
+    item.map((post) => lastPost.push(post));
+  });
+
+  myPost.map((item) => lastPost.push(item));
+
+  let sortingField = "id";
+  lastPost.sort(function (a, b) {
+    return b[sortingField] - a[sortingField];
+  });
 
   useEffect(() => {
     function onScroll() {
@@ -71,7 +75,7 @@ export default function Home() {
               marginTop: "140px",
             }}
           >
-            {filteredPosts.map((post, index) => (
+            {lastPost.map((post, index) => (
               <Main key={index} post={post} />
             ))}
           </div>

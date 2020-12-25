@@ -26,6 +26,7 @@ import OtherProfile from "../../components/OtherProfile";
 import { LOAD_USER_POSTS_REQUEST } from "../../reducers/post";
 import { useRouter } from "next/router";
 import Main from "../../components/Main";
+import Router from "next/router";
 
 export default function User() {
   const dispatch = useDispatch();
@@ -33,12 +34,9 @@ export default function User() {
   const { id } = router.query;
 
   const { userInfo } = useSelector((state) => state.user);
-  const {
-    mainPosts,
-    hasMorePosts,
-    loadPostsLoading,
-    // retweetError,
-  } = useSelector((state) => state.post);
+  const { mainPosts, hasMorePosts, loadPostsLoading } = useSelector(
+    (state) => state.post
+  );
 
   useEffect(() => {
     function onScroll() {
@@ -64,12 +62,16 @@ export default function User() {
   }, [mainPosts.length, hasMorePosts, id, loadPostsLoading]);
 
   useEffect(() => {
-    dispatch({
-      type: LOAD_FOLLOWERS_REQUEST,
-    });
-    dispatch({
-      type: LOAD_FOLLOWINGS_REQUEST,
-    });
+    if (userInfo) {
+      dispatch({
+        type: LOAD_FOLLOWERS_REQUEST,
+      });
+      dispatch({
+        type: LOAD_FOLLOWINGS_REQUEST,
+      });
+    } else {
+      Router.push("/");
+    }
   }, []);
 
   return (
