@@ -38,8 +38,6 @@ const Main = ({ post }) => {
     (user) => user.id === post.User.id
   );
 
-  console.log(isFollowing);
-
   const [input, setInput] = useState("");
   const [focus, setFocus] = useState(false);
   const { isOpen, onClose, onOpen } = useDisclosure();
