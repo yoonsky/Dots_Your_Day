@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { SIGN_UP_REQUEST } from "../reducers/user";
 import Link from "next/link";
 
@@ -28,7 +28,6 @@ function CheckEmail(str) {
 
 const SignUp = () => {
   const toast = useToast();
-  const { signupLoading } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
 
@@ -41,17 +40,16 @@ const SignUp = () => {
 
   const { email, nickname, password, confirm } = inputValue;
 
-  const handleClick = async () => {
+  const handleClick = () => {
     if (
       email !== "" &&
       nickname !== "" &&
       password !== "" &&
       confirm !== "" &&
       CheckEmail(email) &&
-      password === confirm
+      password == confirm
     ) {
-      console.log(email, nickname, password, confirm);
-      await toast({
+      toast({
         title: "Account created.",
         description: "회원가입이 완료되었습니다.",
         status: "success",
@@ -63,7 +61,7 @@ const SignUp = () => {
         data: { email, password, nickname },
       });
     } else {
-      await toast({
+      toast({
         title: "Warning.",
         description: "입력값이 없거나 올바르지 않습니다.",
         status: "warning",
@@ -145,12 +143,7 @@ const SignUp = () => {
             </Link>
           </Button>
           <Spacer />
-          <Button
-            isLoading={signupLoading}
-            colorScheme="blue"
-            variant="solid"
-            onClick={handleClick}
-          >
+          <Button colorScheme="blue" variant="solid" onClick={handleClick}>
             SIGN UP
           </Button>
         </Flex>

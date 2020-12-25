@@ -11,12 +11,13 @@ import axios from "axios";
 import { LOAD_MY_INFO_REQUEST } from "../reducers/user";
 import { END } from "redux-saga";
 import wrapper from "../store/configureStore";
-import useToast from "@chakra-ui/react";
+import { useToast } from "@chakra-ui/react";
 
 export default function Home() {
   const { signupDone, signupError } = useSelector((state) => state.user);
 
   const toast = useToast();
+
   useEffect(() => {
     if (signupDone) {
       Router.replace("/");
