@@ -6,6 +6,7 @@ import {
   TabPanel,
   TabPanels,
   Tabs,
+  Text,
 } from "@chakra-ui/react";
 import Head from "next/head";
 import Layout from "../../components/Layout";
@@ -27,7 +28,6 @@ import { LOAD_USER_POSTS_REQUEST } from "../../reducers/post";
 import { useRouter } from "next/router";
 import Main from "../../components/Main";
 import Router from "next/router";
-import SignIn from "../../components/Signin";
 import Write from "../../components/Write";
 import ProfileBox from "../../components/ProfileBox";
 
@@ -85,7 +85,6 @@ export default function User() {
         <title>Dot Your Day | {userInfo?.nickname}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {/* 테스트 장소 */}
       <Layout>
         {userInfo?.id ? (
           <>
@@ -123,21 +122,28 @@ export default function User() {
                       {parseInt(id) === me?.id ? (
                         <ProfileBox me={me} />
                       ) : (
-                        <OtherProfile userInfo={userInfo} />
+                        <OtherProfile userInfo={userInfo} id={id} />
                       )}
                     </Box>
                   </Flex>
                 </TabPanel>
 
                 <TabPanel background="white" maxHeight="600px" overflow="auto">
-                  <Box marginTop="40px" position="relative">
-                    {/* <Box position="absolute"> */}
-                    {/* 여기서 내 게시글만 가져와서 뿌려줘야 함 */}
-
-                    {mainPosts.map((post) => (
-                      <Main key={post.id} post={post} />
-                    ))}
-                  </Box>
+                  {mainPosts.length < 1 ? (
+                    <Box marginTop="40px" position="relative">
+                      <img
+                        position="absolute"
+                        style={{ width: "500px", border: "2px solid #e7e7e7" }}
+                        src="https://i.ibb.co/nQSJq7C/nofd.jpg"
+                      />
+                    </Box>
+                  ) : (
+                    <Box marginTop="40px" position="relative">
+                      {mainPosts.map((post) => (
+                        <Main key={post.id} post={post} />
+                      ))}
+                    </Box>
+                  )}
                   {/* </Box> */}
                 </TabPanel>
                 {parseInt(id) === me?.id && (

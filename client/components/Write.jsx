@@ -113,7 +113,7 @@ const Write = ({ me }) => {
       width="100%"
     >
       <Flex padding="20px 10px" alignItems="center">
-        <Avatar name={me?.nickname[0]} size="sm" bg="blue.500" margin="0 6px" />
+        <Avatar name={me?.nickname} size="sm" bg="blue.500" margin="0 6px" />
         <Text fontWeight="bold">{me?.nickname}</Text>
       </Flex>
       <Box minWidth="380px" minHeight="380px">

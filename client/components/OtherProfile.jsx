@@ -19,30 +19,30 @@ import ModalBox from "./ModalBox";
 import { useDispatch, useSelector } from "react-redux";
 import { UNFOLLOW_REQUEST, FOLLOW_REQUEST } from "../reducers/user";
 
-const OtherProfile = ({ userInfo }) => {
+const OtherProfile = ({ userInfo, id }) => {
   const toast = useToast();
   const { isOpen, onClose, onOpen } = useDisclosure();
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.user);
 
-  // console.log("userInfo", userInfo);
-  // console.log("me", me);
+  console.log("userInfo", userInfo);
+  console.log("id", id);
 
   const isFollowing = me?.Followings.findIndex(
     (user) => user.id === userInfo.id
   );
 
-  const handleUnFollow = () => {
+  const handleUnFollow = (id) => {
     dispatch({
       type: UNFOLLOW_REQUEST,
-      data: userInfo.id,
+      data: parseInt(id),
     });
   };
 
-  const handleFollow = () => {
+  const handleFollow = (id) => {
     dispatch({
       type: FOLLOW_REQUEST,
-      data: userInfo.id,
+      data: parseInt(id),
     });
   };
 
@@ -72,7 +72,7 @@ const OtherProfile = ({ userInfo }) => {
     >
       <Flex padding="15px 10px" alignItems="center">
         <Avatar
-          name={userInfo.nickname[0]}
+          name={userInfo.nickname}
           size="sm"
           bg="blue.500"
           margin="0 6px"
@@ -92,7 +92,7 @@ const OtherProfile = ({ userInfo }) => {
         </Center> */}
       </Box>
       <Flex padding="20px" alignItems="center">
-        <Text fontWeight="bold">{userInfo.nickname}</Text>
+        <Text fontWeight="bold">{userInfo.greet}</Text>
         {/* 좋아요 숫자 */}
 
         <Spacer />
@@ -112,7 +112,7 @@ const OtherProfile = ({ userInfo }) => {
           <>
             {isFollowing ? (
               <Button
-                onClick={handleFollow}
+                onClick={() => handleFollow(id)}
                 name="follow"
                 margin="6px"
                 _hover={{ bg: "#1C84E1", color: "white" }}
@@ -121,7 +121,7 @@ const OtherProfile = ({ userInfo }) => {
               </Button>
             ) : (
               <Button
-                onClick={handleUnFollow}
+                onClick={() => handleUnFollow(id)}
                 name="unfollow"
                 margin="6px"
                 _hover={{ bg: "#1C84E1", color: "white" }}

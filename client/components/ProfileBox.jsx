@@ -100,7 +100,7 @@ const ProfileBox = ({ me }) => {
       width="100%"
     >
       <Flex padding="15px 10px" alignItems="center">
-        <Avatar name={me.nickname[0]} size="sm" bg="blue.500" margin="0 6px" />
+        <Avatar name={me.nickname} size="sm" bg="blue.500" margin="0 6px" />
         <Text fontWeight="bold">{me.nickname}</Text>
         <Spacer />
         <IconButtons onClick={onOpen} icon={<AiFillSetting />} />

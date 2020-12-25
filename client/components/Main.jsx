@@ -142,7 +142,7 @@ const Main = ({ post }) => {
         <Link href={`/profile/${post.User.id}`}>
           <a>
             <Avatar
-              name={post.User.nickname[0]}
+              name={post.User.nickname}
               size="sm"
               bg="blue.500"
               margin="0 6px"
@@ -207,10 +207,10 @@ const Main = ({ post }) => {
             <>
               {post.Comments.map((item, index) => (
                 <Flex alignItems="center" padding="2px 0px" key={index}>
-                  <Link href={`/user/${post.User.id}`}>
+                  <Link href={`/profile/${post.User.id}`}>
                     <a>
                       <Avatar
-                        name={item.User.nickname[0]}
+                        name={item.User.nickname}
                         size="sm"
                         bg="blue.500"
                         margin="0 6px"

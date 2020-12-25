@@ -114,7 +114,11 @@ const Navbar = () => {
               <>
                 {me?.Followers.map((item, index) => (
                   <Flex alignItems="center" padding="2px 0px" key={index}>
-                    <Avatar name={item.nickname} size="sm" bg="blue.500" />
+                    <Link href={`/profile/${item.id}`}>
+                      <a>
+                        <Avatar name={item.nickname} size="sm" bg="blue.500" />
+                      </a>
+                    </Link>
                     <Input
                       type="text"
                       value={item.nickname}
