@@ -7,53 +7,6 @@ const { Op } = require("sequelize");
 
 const router = express.Router();
 
-router.get("/:userId/posts", isLoggedIn, async (req, res, next) => {
-  try {
-    const where = { UserId: req.params.userId };
-    if (parseInt(req.query.lastId, 10)) {
-      where.id = { [Op.lt]: parseInt(req.query.lastId, 10) };
-    }
-    const posts = await Post.findAll({
-      where,
-      // where: { id: lastId },
-      limit: 10,
-      order: [
-        ["createdAt", "DESC"],
-        // [Comment, "createdAt", "DESC"],
-      ],
-      include: [
-        {
-          model: User,
-          attributes: ["id", "nickname", "greet"],
-        },
-        {
-          model: Image,
-          attributes: ["src"],
-        },
-        {
-          model: Comment,
-          include: [
-            {
-              model: User,
-              attributes: ["id", "nickname", "greet"],
-              order: [["createdAt", "DESC"]],
-            },
-          ],
-        },
-        {
-          model: User,
-          as: "Likers",
-          attributes: ["id", "nickname", "greet"],
-        },
-      ],
-    });
-    res.status(200).json(posts);
-  } catch (error) {
-    console.error(error);
-    next(error);
-  }
-});
-
 router.get("/", isLoggedIn, async (req, res, next) => {
   console.log(req.headers);
   try {
@@ -83,45 +36,6 @@ router.get("/", isLoggedIn, async (req, res, next) => {
       res.status(200).json(fullUserWithoutPassword);
     } else {
       res.status(200).json(null);
-    }
-  } catch (error) {
-    console.error(error);
-    next(error);
-  }
-});
-
-router.get("/:userId", isLoggedIn, async (req, res, next) => {
-  try {
-    const fullUserWithoutPassword = await User.findOne({
-      where: { id: req.params.userId },
-      attributes: {
-        exclude: ["password"],
-      },
-      include: [
-        {
-          model: Post,
-          attributes: ["id"],
-        },
-        {
-          model: User,
-          as: "Followings",
-          attributes: ["id", "nickname", "greet"],
-        },
-        {
-          model: User,
-          as: "Followers",
-          attributes: ["id", "nickname", "greet"],
-        },
-      ],
-    });
-    if (fullUserWithoutPassword) {
-      const data = fullUserWithoutPassword.toJSON();
-      data.Posts = data.Posts.length;
-      data.Followers = data.Followers.length;
-      data.Followings = data.Followings.length;
-      res.status(200).json(data);
-    } else {
-      res.status(404).json("존재하지 않는 계정입니다.");
     }
   } catch (error) {
     console.error(error);
@@ -233,6 +147,92 @@ router.patch("/greet", isLoggedIn, async (req, res, next) => {
       }
     );
     res.status(200).json({ greet: req.body.greet });
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
+router.get("/:userId", isLoggedIn, async (req, res, next) => {
+  try {
+    const fullUserWithoutPassword = await User.findOne({
+      where: { id: req.params.userId },
+      attributes: {
+        exclude: ["password"],
+      },
+      include: [
+        {
+          model: Post,
+          attributes: ["id"],
+        },
+        {
+          model: User,
+          as: "Followings",
+          attributes: ["id", "nickname", "greet"],
+        },
+        {
+          model: User,
+          as: "Followers",
+          attributes: ["id", "nickname", "greet"],
+        },
+      ],
+    });
+    if (fullUserWithoutPassword) {
+      const data = fullUserWithoutPassword.toJSON();
+      data.Posts = data.Posts.length;
+      data.Followers = data.Followers.length;
+      data.Followings = data.Followings.length;
+      res.status(200).json(data);
+    } else {
+      res.status(404).json("존재하지 않는 계정입니다.");
+    }
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
+router.get("/:userId/posts", isLoggedIn, async (req, res, next) => {
+  try {
+    const where = { UserId: req.params.userId };
+    if (parseInt(req.query.lastId, 10)) {
+      where.id = { [Op.lt]: parseInt(req.query.lastId, 10) };
+    }
+    const posts = await Post.findAll({
+      where,
+      // where: { id: lastId },
+      limit: 10,
+      order: [
+        ["createdAt", "DESC"],
+        // [Comment, "createdAt", "DESC"],
+      ],
+      include: [
+        {
+          model: User,
+          attributes: ["id", "nickname", "greet"],
+        },
+        {
+          model: Image,
+          attributes: ["src"],
+        },
+        {
+          model: Comment,
+          include: [
+            {
+              model: User,
+              attributes: ["id", "nickname", "greet"],
+              order: [["createdAt", "DESC"]],
+            },
+          ],
+        },
+        {
+          model: User,
+          as: "Likers",
+          attributes: ["id", "nickname", "greet"],
+        },
+      ],
+    });
+    res.status(200).json(posts);
   } catch (error) {
     console.error(error);
     next(error);

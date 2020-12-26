@@ -4,20 +4,23 @@
   "private": true,
   "scripts": {
     "dev": "next",
-    "build": "next build",
-    "start": "next start"
+    "build": "cross-env ANALYZE=true NODE_ENV=production next build",
+    "start": "cross-env NODE_ENV=production next start"
   },
   "dependencies": {
     "@chakra-ui/react": "^1.0.4",
     "@emotion/core": "^11.0.0",
     "@emotion/react": "^11.1.4",
     "@emotion/styled": "^11.0.0",
+    "@next/bundle-analyzer": "^10.0.4",
     "axios": "^0.21.1",
     "babel-plugin-styled-components": "^1.12.0",
+    "cross-env": "^7.0.3",
     "emotion-theming": "^11.0.0",
     "formik": "^2.2.6",
     "framer-motion": "^3.1.1",
     "immer": "^8.0.0",
+    "moment": "^2.29.1",
     "next": "10.0.3",
     "next-images": "^1.6.2",
     "next-redux-wrapper": "^6.0.2",

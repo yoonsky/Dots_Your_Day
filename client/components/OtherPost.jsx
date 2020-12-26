@@ -28,6 +28,8 @@ import {
 import Link from "next/link";
 import { FOLLOW_REQUEST, UNFOLLOW_REQUEST } from "../reducers/user";
 import HashtagSplit from "./HashtagSplit";
+import moment from "moment";
+moment.locale("ko");
 
 const OtherPost = ({ post }) => {
   const toast = useToast();
@@ -191,7 +193,9 @@ const OtherPost = ({ post }) => {
         {/* 좋아요 숫자 */}
 
         <Spacer />
-        <IconButtons size={"24px"} icon={<BsCloud />} />
+        <Text fontWeight="bold" marginRight="4px">
+          {moment(post.createdAt).format("YYYY.MM.DD")}
+        </Text>
       </Flex>
       <Accordion allowMultiple width="100%">
         {/* <AccordionBox title="나의 기록" text={post.content} /> */}

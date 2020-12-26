@@ -27,7 +27,6 @@ const ProfileBox = ({ me }) => {
     (state) => state.user
   );
 
-  // console.log(me);
   const dispatch = useDispatch();
   const toast = useToast();
   const [input, setInput] = useState("");
@@ -50,8 +49,7 @@ const ProfileBox = ({ me }) => {
           data: input,
         });
 
-        changeNicknameDone && //이거 에러날 수 도 있음!!!
-          onClose();
+        changeNicknameDone && onClose();
         toast({
           title: "Modification completed.",
           description: "닉네임 변경이 완료되었습니다.",
@@ -68,8 +66,7 @@ const ProfileBox = ({ me }) => {
         data: input,
       });
 
-      changeGreetDone && //여기도 에러 가능성 다분!
-        onClose();
+      changeGreetDone && onClose();
       toast({
         title: "Modification completed.",
         description: "인사말 변경이 완료되었습니다.",
@@ -89,7 +86,6 @@ const ProfileBox = ({ me }) => {
   return (
     <Box
       border="1px solid #e9e9e9"
-      // margin="40px 0px"
       backgroundColor="white"
       borderRadius="6px"
       width="400px"

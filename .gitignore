@@ -1,1 +1,4 @@
 node_modules
+.next
+dot-your-day.pem
+.env

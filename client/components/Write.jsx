@@ -55,7 +55,6 @@ const Write = ({ me }) => {
       imagePaths.forEach((p) => {
         formData.append("image", p);
       });
-      console.log(formData);
       formData.append("content", text);
 
       dispatch({
@@ -79,7 +78,6 @@ const Write = ({ me }) => {
   }, [imageInput.current]);
 
   const onChangeImages = useCallback((e) => {
-    console.log("images", e.target.files);
     const imageFormData = new FormData();
     [].forEach.call(e.target.files, (f) => {
       imageFormData.append("image", f);

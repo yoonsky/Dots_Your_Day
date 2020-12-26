@@ -16,6 +16,7 @@ import React, { useCallback, useState } from "react";
 import { HiDotsVertical } from "react-icons/hi";
 import { FaRegHeart, FaHeart, FaTelegramPlane } from "react-icons/fa";
 import { BsCloud } from "react-icons/bs";
+import moment from "moment";
 import AccordionBox from "./AccordionBox";
 import ModalBox from "./ModalBox";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,6 +28,7 @@ import {
 } from "../reducers/post";
 import Link from "next/link";
 import HashtagSplit from "./HashtagSplit";
+moment.locale("ko");
 
 const Main = ({ post }) => {
   const toast = useToast();
@@ -153,9 +155,12 @@ const Main = ({ post }) => {
         )}
         <Text>{post.Likers.length}</Text>
         {/* 좋아요 숫자 */}
-
         <Spacer />
-        <IconButtons size={"24px"} icon={<BsCloud />} />
+        {/* <IconButtons size={"24px"} icon={<BsCloud />} /> */}
+
+        <Text fontWeight="bold" marginRight="4px">
+          {moment(post.createdAt).format("YYYY.MM.DD")}
+        </Text>
       </Flex>
       <Accordion allowMultiple width="100%">
         <div style={{ padding: "8px 16px" }}>

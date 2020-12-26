@@ -30,7 +30,6 @@ const Navbar = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   const onLogout = () => {
-    console.log("로그아웃!");
     dispatch(logoutRequestAction());
   };
 
