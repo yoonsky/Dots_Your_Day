@@ -75,7 +75,7 @@ const Navbar = () => {
                 <a>😊 프로필</a>
               </Link>
             </MenuItem>
-            <MenuItem onClick={FollowOpen}>👥 팔로우</MenuItem>
+            <MenuItem onClick={FollowOpen}>👥 내 팔로워</MenuItem>
             <MenuItem onClick={onLogout}>👻 로그아웃</MenuItem>
           </MenuList>
         </Menu>

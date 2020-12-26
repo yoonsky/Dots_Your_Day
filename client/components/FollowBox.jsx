@@ -22,7 +22,6 @@ import ModalBox from "./ModalBox";
 import { useDispatch, useSelector } from "react-redux";
 
 const FollowBox = ({ me }) => {
-  console.log(me);
   const { isOpen, onClose, onOpen } = useDisclosure();
   const dispatch = useDispatch();
 
@@ -168,7 +167,7 @@ const FollowBox = ({ me }) => {
                             </Button>
                           ) : (
                             <Button onClick={() => handleUnFollow(item.id)}>
-                              언팔로우
+                              차단
                             </Button>
                           )}
                         </>
