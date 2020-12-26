@@ -7,9 +7,6 @@ import {
   Image,
   Input,
   Spacer,
-  Stat,
-  StatLabel,
-  StatNumber,
   Text,
   useDisclosure,
   useToast,
@@ -23,11 +20,9 @@ import {
   CHANGE_NICKNAME_REQUEST,
   CHANGE_GREET_REQUEST,
 } from "../reducers/user";
+import FollowBox from "./FollowBox";
 
 const ProfileBox = ({ me }) => {
-  // userInfo.Posts, Followings Followers nickname
-  console.log(me);
-
   const { changeNicknameDone, changeGreetDone } = useSelector(
     (state) => state.user
   );
@@ -113,22 +108,8 @@ const ProfileBox = ({ me }) => {
           src="https://i.ibb.co/KKHv5zS/dotdot.jpg"
         />
       </Box>
-      <Flex padding="20px" alignItems="center">
-        <Text fontWeight="bold">{me.greet}</Text>
-        {/* 좋아요 숫자 */}
 
-        <Spacer />
-
-        <Stat textAlign="right">
-          <StatLabel>Follower</StatLabel>
-          <StatNumber>{me?.Followers.length}</StatNumber>
-        </Stat>
-        <Stat textAlign="right">
-          <StatLabel>Following</StatLabel>
-          <StatNumber>{me?.Followings.length}</StatNumber>
-        </Stat>
-      </Flex>
-
+      <FollowBox me={me} />
       <ModalBox
         context={
           <>

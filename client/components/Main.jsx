@@ -27,10 +27,11 @@ import {
 } from "../reducers/post";
 import Link from "next/link";
 import { FOLLOW_REQUEST, UNFOLLOW_REQUEST } from "../reducers/user";
+import HashtagSplit from "./HashtagSplit";
 
 const Main = ({ post }) => {
   const toast = useToast();
-  const { removePostLoading, imagePaths } = useSelector((state) => state.post);
+  const { removePostLoading } = useSelector((state) => state.post);
   const { me } = useSelector((state) => state.user);
   const id = me?.id;
 
@@ -180,7 +181,10 @@ const Main = ({ post }) => {
         <IconButtons size={"24px"} icon={<BsCloud />} />
       </Flex>
       <Accordion allowMultiple width="100%">
-        <AccordionBox title="나의 기록" text={post.content} />
+        {/* <AccordionBox title="나의 기록" text={post.content} /> */}
+        <Flex padding="8px 16px">
+          <HashtagSplit postData={post.content} />
+        </Flex>
 
         <Flex borderTop="1px solid #e7e7e7">
           <Input
@@ -205,8 +209,8 @@ const Main = ({ post }) => {
           overflowEvent="scroll"
           text={
             <>
-              {post.Comments.map((item, index) => (
-                <Flex alignItems="center" padding="2px 0px" key={index}>
+              {post.Comments.map((item) => (
+                <Flex alignItems="center" padding="2px 0px" key={item.id}>
                   <Link href={`/profile/${post.User.id}`}>
                     <a>
                       <Avatar

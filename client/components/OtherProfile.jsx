@@ -25,8 +25,6 @@ const OtherProfile = ({ userInfo, id }) => {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.user);
 
-  console.log("userInfo", userInfo);
-
   const { nickname, greet, Followers, Followings } = userInfo;
 
   const isFollowing = me?.Followings.findIndex(

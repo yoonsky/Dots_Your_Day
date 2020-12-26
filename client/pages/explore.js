@@ -24,16 +24,9 @@ export default function Explore() {
     (state) => state.post
   );
 
-  console.log(me);
-  console.log(mainPosts);
-
   const handleSearch = () => {
     Router.push(`/hashtag/${input}`);
   };
-
-  // if (!me) {
-  //   return null;
-  // }
 
   useEffect(() => {
     if (!me?.id) {

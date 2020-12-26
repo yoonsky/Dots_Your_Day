@@ -45,7 +45,7 @@ export default function User() {
     function onScroll() {
       if (
         window.scrollY + document.documentElement.clientHeight >
-        document.documentElement.scrollHeight - 300
+        document.documentElement.scrollHeight - 500
       ) {
         if (hasMorePosts && !loadPostsLoading) {
           const lastId = mainPosts[mainPosts.length - 1]?.id;
@@ -122,9 +122,9 @@ export default function User() {
                       {parseInt(id) === me?.id ? (
                         <ProfileBox me={me} />
                       ) : (
-                        // <OtherProfile userInfo={userInfo} id={id} />
+                        <OtherProfile userInfo={userInfo} id={id} />
 
-                        <ProfileBox me={userInfo} />
+                        // <ProfileBox me={userInfo} />
                       )}
                     </Box>
                   </Flex>

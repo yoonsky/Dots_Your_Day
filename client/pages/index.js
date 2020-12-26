@@ -4,7 +4,11 @@ import SignIn from "../components/Signin";
 import Main from "../components/Main";
 
 import { useDispatch, useSelector } from "react-redux";
-import { LOAD_POSTS_REQUEST, LOAD_POST_REQUEST } from "../reducers/post";
+import {
+  LOAD_POSTS_REQUEST,
+  LOAD_POST_REQUEST,
+  LOAD_USER_POSTS_REQUEST,
+} from "../reducers/post";
 import { LOAD_MY_INFO_REQUEST } from "../reducers/user";
 import wrapper from "../store/configureStore";
 import { END } from "redux-saga";
@@ -17,8 +21,6 @@ export default function Home() {
   const { mainPosts, hasMorePosts, loadPostsLoading } = useSelector(
     (state) => state.post
   );
-
-  console.log("렌더링 몇번");
 
   let followPost = [];
 
@@ -39,8 +41,6 @@ export default function Home() {
   lastPost.sort(function (a, b) {
     return b[sortingField] - a[sortingField];
   });
-
-  console.log(lastPost[lastPost.length - 1]);
 
   // useEffect(() => {
   //   dispatch({
