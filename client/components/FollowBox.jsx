@@ -12,7 +12,12 @@ import {
 } from "@chakra-ui/react";
 import Link from "next/link";
 import React, { useState } from "react";
-import { FOLLOW_REQUEST, UNFOLLOW_REQUEST } from "../reducers/user";
+import {
+  FOLLOW_REQUEST,
+  LOAD_FOLLOWERS_REQUEST,
+  LOAD_FOLLOWINGS_REQUEST,
+  UNFOLLOW_REQUEST,
+} from "../reducers/user";
 import ModalBox from "./ModalBox";
 import { useDispatch } from "react-redux";
 
@@ -26,6 +31,12 @@ const FollowBox = ({ me }) => {
       type: UNFOLLOW_REQUEST,
       data: id,
     });
+    // dispatch({
+    //   type: LOAD_FOLLOWERS_REQUEST,
+    // });
+    // dispatch({
+    //   type: LOAD_FOLLOWINGS_REQUEST,
+    // });
   };
 
   const handleFollow = (id) => {
@@ -33,6 +44,12 @@ const FollowBox = ({ me }) => {
       type: FOLLOW_REQUEST,
       data: id,
     });
+    // dispatch({
+    //   type: LOAD_FOLLOWERS_REQUEST,
+    // });
+    // dispatch({
+    //   type: LOAD_FOLLOWINGS_REQUEST,
+    // });
   };
 
   const openModal = (name) => {

@@ -2,7 +2,7 @@ import Link from "next/link";
 import React from "react";
 
 const HashtagSplit = ({ postData }) => (
-  <div>
+  <div style={{ padding: "8px 16" }}>
     {postData
       .toString()
       .split(/(#[^\s#]+)/g)

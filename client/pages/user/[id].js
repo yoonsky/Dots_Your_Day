@@ -15,7 +15,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   LOAD_FOLLOWERS_REQUEST,
   LOAD_FOLLOWINGS_REQUEST,
-  LOAD_MY_INFO_REQUEST,
   LOAD_USER_REQUEST,
 } from "../../reducers/user";
 import { END } from "redux-saga";
@@ -34,8 +33,8 @@ export default function User() {
   const dispatch = useDispatch();
   const router = useRouter();
   const { id } = router.query;
+  const { userInfo } = useSelector((state) => state.user);
 
-  const { userInfo, me } = useSelector((state) => state.user);
   const { mainPosts, hasMorePosts, loadPostsLoading } = useSelector(
     (state) => state.post
   );
@@ -64,21 +63,6 @@ export default function User() {
     };
   }, [mainPosts.length, hasMorePosts, id, loadPostsLoading]);
 
-  useEffect(() => {
-    if (!me?.id) {
-      Router.push("/");
-    }
-  }, [me, me?.id]);
-
-  useEffect(() => {
-    dispatch({
-      type: LOAD_FOLLOWERS_REQUEST,
-    });
-    dispatch({
-      type: LOAD_FOLLOWINGS_REQUEST,
-    });
-  }, []);
-
   return (
     <div>
       <Head>
@@ -86,7 +70,7 @@ export default function User() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
-        {userInfo?.id ? (
+        {userInfo ? (
           <>
             <Tabs variant="unstyled" width="100%">
               <TabList
@@ -108,24 +92,13 @@ export default function User() {
                 <Tab p="16px" fontWeight="bold">
                   게시글
                 </Tab>
-
-                {parseInt(id) === me?.id && (
-                  <Tab p="16px" fontWeight="bold">
-                    글작성
-                  </Tab>
                 )}
               </TabList>
               <TabPanels display="flex" justifyContent="center">
                 <TabPanel background="white">
                   <Flex flexDirection="column">
                     <Box>
-                      {parseInt(id) === me?.id ? (
-                        <ProfileBox me={me} />
-                      ) : (
-                        <OtherProfile userInfo={userInfo} id={id} />
-
-                        // <ProfileBox me={userInfo} />
-                      )}
+                      <OtherProfile userInfo={userInfo} id={id} />
                     </Box>
                   </Flex>
                 </TabPanel>
@@ -148,19 +121,6 @@ export default function User() {
                   )}
                   {/* </Box> */}
                 </TabPanel>
-                {parseInt(id) === me?.id && (
-                  <TabPanel
-                    background="white"
-                    maxHeight="600px"
-                    overflow="auto"
-                  >
-                    <Flex>
-                      <Box>
-                        <Write me={me} />
-                      </Box>
-                    </Flex>
-                  </TabPanel>
-                )}
               </TabPanels>
             </Tabs>
           </>
@@ -188,14 +148,14 @@ export const getServerSideProps = wrapper.getServerSideProps(
     if (context.req && cookie) {
       axios.defaults.headers.Cookie = cookie;
     }
-    context.store.dispatch({
-      type: LOAD_USER_POSTS_REQUEST,
-      data: context.params.id,
-    });
+    // context.store.dispatch({
+    //   type: LOAD_USER_POSTS_REQUEST,
+    //   data: context.params.id,
+    // });
 
-    context.store.dispatch({
-      type: LOAD_MY_INFO_REQUEST,
-    });
+    // context.store.dispatch({
+    //   type: LOAD_MY_INFO_REQUEST,
+    // });
 
     context.store.dispatch({
       type: LOAD_USER_REQUEST,

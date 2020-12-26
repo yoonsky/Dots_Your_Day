@@ -105,11 +105,12 @@ const Write = ({ me }) => {
   return (
     <Box
       border="1px solid #e9e9e9"
-      margin="40px 0px"
       backgroundColor="white"
       borderRadius="6px"
-      maxWidth="600px"
-      width="100%"
+      width="400px"
+      position="absolute"
+      top="140px"
+      right="-200px"
     >
       <Flex padding="20px 10px" alignItems="center">
         <Avatar name={me?.nickname} size="sm" bg="blue.500" margin="0 6px" />
@@ -153,7 +154,7 @@ const Write = ({ me }) => {
       <Flex flexDirection="column">
         <Textarea
           borderRadius="0"
-          height="150px"
+          height="100px"
           resize="none"
           placeholder="please write your today here"
           onChange={handleChange}

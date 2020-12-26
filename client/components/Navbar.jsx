@@ -40,20 +40,37 @@ const Navbar = () => {
     dispatch(logoutRequestAction());
   };
 
-  useEffect(() => {
-    dispatch({
-      type: LOAD_FOLLOWERS_REQUEST,
-    });
-    dispatch({
-      type: LOAD_FOLLOWINGS_REQUEST,
-    });
-  }, []);
+  // useEffect(() => {
+  //   dispatch({
+  //     type: LOAD_FOLLOWERS_REQUEST,
+  //   });
+  //   dispatch({
+  //     type: LOAD_FOLLOWINGS_REQUEST,
+  //   });
+  // }, []);
+
+  const FollowOpen = () => {
+    onOpen();
+
+    // dispatch({
+    //   type: LOAD_FOLLOWERS_REQUEST,
+    // });
+    // dispatch({
+    //   type: LOAD_FOLLOWINGS_REQUEST,
+    // });
+  };
 
   const handleUnFollow = (id) => {
     dispatch({
       type: UNFOLLOW_REQUEST,
       data: id,
     });
+    // dispatch({
+    //   type: LOAD_FOLLOWERS_REQUEST,
+    // });
+    // dispatch({
+    //   type: LOAD_FOLLOWINGS_REQUEST,
+    // });
   };
 
   const handleFollow = (id) => {
@@ -61,6 +78,12 @@ const Navbar = () => {
       type: FOLLOW_REQUEST,
       data: id,
     });
+    // dispatch({
+    //   type: LOAD_FOLLOWERS_REQUEST,
+    // });
+    // dispatch({
+    //   type: LOAD_FOLLOWINGS_REQUEST,
+    // });
   };
 
   const { isOpen, onClose, onOpen } = useDisclosure();
@@ -97,11 +120,11 @@ const Navbar = () => {
           </MenuButton>
           <MenuList width="140px">
             <MenuItem>
-              <Link href={`/profile/${me?.id}`}>
+              <Link href="/profile">
                 <a>😊 프로필</a>
               </Link>
             </MenuItem>
-            <MenuItem onClick={onOpen}>👥 팔로우</MenuItem>
+            <MenuItem onClick={FollowOpen}>👥 팔로우</MenuItem>
             <MenuItem onClick={onLogout}>👻 로그아웃</MenuItem>
           </MenuList>
         </Menu>

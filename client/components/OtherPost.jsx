@@ -29,11 +29,15 @@ import Link from "next/link";
 import { FOLLOW_REQUEST, UNFOLLOW_REQUEST } from "../reducers/user";
 import HashtagSplit from "./HashtagSplit";
 
-const Main = ({ post }) => {
+const OtherPost = ({ post }) => {
   const toast = useToast();
   const { removePostLoading } = useSelector((state) => state.post);
   const { me } = useSelector((state) => state.user);
   const id = me?.id;
+
+  const isFollowing = me?.Followings.findIndex(
+    (user) => user.id === post.User.id
+  );
 
   const [input, setInput] = useState("");
   const [focus, setFocus] = useState(false);
@@ -124,7 +128,7 @@ const Main = ({ post }) => {
     [input, id]
   );
 
-  // const liked = post?.Likers.find((v) => v.id === id);
+  const liked = post?.Likers.find((v) => v.id === id);
 
   return (
     <Box
@@ -136,12 +140,16 @@ const Main = ({ post }) => {
       width="100%"
     >
       <Flex padding="15px 10px" alignItems="center">
-        <Avatar
-          name={post.User.nickname}
-          size="sm"
-          bg="blue.500"
-          margin="0 6px"
-        />
+        <Link href={`/profile/${post.User.id}`}>
+          <a>
+            <Avatar
+              name={post.User.nickname}
+              size="sm"
+              bg="blue.500"
+              margin="0 6px"
+            />
+          </a>
+        </Link>
 
         <Text fontWeight="bold">{post.User.nickname}</Text>
         <Spacer />
@@ -157,7 +165,7 @@ const Main = ({ post }) => {
         )}
       </Box>
       <Flex padding="15px 10px" alignItems="center">
-        {true ? (
+        {liked ? (
           <IconButtons
             size={"22px"}
             onClick={onUnLike}
@@ -174,9 +182,9 @@ const Main = ({ post }) => {
       </Flex>
       <Accordion allowMultiple width="100%">
         {/* <AccordionBox title="나의 기록" text={post.content} /> */}
-        <div style={{ padding: "8px 16px" }}>
+        <Flex padding="8px 16">
           <HashtagSplit postData={post.content} />
-        </div>
+        </Flex>
 
         <Flex borderTop="1px solid #e7e7e7">
           <Input
@@ -223,17 +231,46 @@ const Main = ({ post }) => {
       <ModalBox
         context={
           <>
-            <Button margin="6px" _hover={{ bg: "#1C84E1", color: "white" }}>
-              수정
-            </Button>
-            <Button
-              onClick={onRemovePost}
-              isLoading={removePostLoading}
-              margin="6px"
-              _hover={{ bg: "#E1341C", color: "white" }}
-            >
-              삭제
-            </Button>
+            {id && post.User.id === id ? ( //자기 게시물인지 타인의 게시물인지 체크!
+              <>
+                <Button margin="6px" _hover={{ bg: "#1C84E1", color: "white" }}>
+                  수정
+                </Button>
+                <Button
+                  onClick={onRemovePost}
+                  isLoading={removePostLoading}
+                  margin="6px"
+                  _hover={{ bg: "#E1341C", color: "white" }}
+                >
+                  삭제
+                </Button>
+              </>
+            ) : (
+              <>
+                {isFollowing === -1 ? (
+                  <Button
+                    onClick={handleFollow}
+                    name="follow"
+                    margin="6px"
+                    _hover={{ bg: "#1C84E1", color: "white" }}
+                  >
+                    팔로우
+                  </Button>
+                ) : (
+                  <Button
+                    onClick={handleUnFollow}
+                    name="unfollow"
+                    margin="6px"
+                    _hover={{ bg: "#1C84E1", color: "white" }}
+                  >
+                    언팔로우
+                  </Button>
+                )}
+                <Button margin="6px" _hover={{ bg: "#E1341C", color: "white" }}>
+                  신고하기
+                </Button>
+              </>
+            )}
 
             <Button
               margin="6px"
@@ -251,4 +288,4 @@ const Main = ({ post }) => {
   );
 };
 
-export default React.memo(Main);
+export default React.memo(OtherPost);

@@ -9,7 +9,11 @@ import {
   LOAD_POST_REQUEST,
   LOAD_USER_POSTS_REQUEST,
 } from "../reducers/post";
-import { LOAD_MY_INFO_REQUEST } from "../reducers/user";
+import {
+  LOAD_FOLLOWERS_REQUEST,
+  LOAD_FOLLOWINGS_REQUEST,
+  LOAD_MY_INFO_REQUEST,
+} from "../reducers/user";
 import wrapper from "../store/configureStore";
 import { END } from "redux-saga";
 import axios from "axios";
@@ -132,6 +136,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     context.store.dispatch({
       type: LOAD_POSTS_REQUEST,
     });
+
     context.store.dispatch(END);
     await context.store.sagaTask.toPromise();
   }
