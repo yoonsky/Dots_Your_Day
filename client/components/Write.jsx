@@ -24,14 +24,10 @@ import {
 import Router from "next/router";
 
 const Write = ({ me }) => {
-  // console.log(me);
   const toast = useToast();
   const dispatch = useDispatch();
   const { imagePaths, addPostDone } = useSelector((state) => state.post);
   const imageInput = useRef();
-
-  // console.log(imagePaths.length);
-
   const [text, setText] = useState("");
 
   useEffect(() => {
@@ -98,7 +94,6 @@ const Write = ({ me }) => {
     dispatch({
       type: REMOVE_IMAGE,
       data: 0,
-      //여기서 에러나면 1로 수정
     });
   }, []);
 
@@ -108,9 +103,7 @@ const Write = ({ me }) => {
       backgroundColor="white"
       borderRadius="6px"
       width="400px"
-      // position="absolute"
       marginTop="140px"
-      // top=""
       right="200px"
     >
       <Flex padding="20px 10px" alignItems="center">
@@ -165,7 +158,6 @@ const Write = ({ me }) => {
           onClick={handleClick}
           borderRadius="0"
           formEncType="multipart/form-data"
-          //우선은 버튼에 입력함 오류시 Form 디브에 작성할것
         >
           저장하기
         </Button>

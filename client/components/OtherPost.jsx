@@ -49,6 +49,7 @@ const OtherPost = ({ post }) => {
       type: UNFOLLOW_REQUEST,
       data: post.User.id,
     });
+    onClose();
   };
 
   const handleFollow = () => {
@@ -56,6 +57,7 @@ const OtherPost = ({ post }) => {
       type: FOLLOW_REQUEST,
       data: post.User.id,
     });
+    onClose();
   };
 
   const onLike = useCallback(() => {
@@ -99,11 +101,13 @@ const OtherPost = ({ post }) => {
         duration: 5000,
         isClosable: true,
       });
+    } else {
+      dispatch({
+        type: REMOVE_POST_REQUEST,
+        data: post.id,
+      });
+      onClose();
     }
-    return dispatch({
-      type: REMOVE_POST_REQUEST,
-      data: post.id,
-    });
   }, []);
 
   const writeComment = useCallback(

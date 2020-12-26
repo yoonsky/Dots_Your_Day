@@ -158,7 +158,6 @@ const Main = ({ post }) => {
         <IconButtons size={"24px"} icon={<BsCloud />} />
       </Flex>
       <Accordion allowMultiple width="100%">
-        {/* <AccordionBox title="나의 기록" text={post.content} /> */}
         <div style={{ padding: "8px 16px" }}>
           <HashtagSplit postData={post.content} />
         </div>

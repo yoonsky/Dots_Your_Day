@@ -19,7 +19,6 @@ const AccordionBox = ({ focus, title, text, overflowEvent = null }) => {
       <AccordionPanel
         maxHeight="150px"
         overflowY={overflowEvent}
-        // padding="10px"
         margin="3px 0px"
       >
         {text}

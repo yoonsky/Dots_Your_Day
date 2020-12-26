@@ -31,28 +31,10 @@ export default function User() {
   const router = useRouter();
   const { id } = router.query;
 
-  const {
-    mainPosts,
-    hasMorePosts,
-    loadPostsLoading,
-    // retweetError,
-  } = useSelector((state) => state.post);
+  const { mainPosts, hasMorePosts, loadPostsLoading } = useSelector(
+    (state) => state.post
+  );
   const { userInfo, me } = useSelector((state) => state.user);
-
-  // console.log(userInfo);
-
-  // const myPosts = mainPosts.filter((item) => item.UserId === me?.id);
-
-  const [followKey, setFollowKey] = useState(true);
-
-  useEffect(() => {
-    dispatch({
-      type: LOAD_FOLLOWERS_REQUEST,
-    });
-    dispatch({
-      type: LOAD_FOLLOWINGS_REQUEST,
-    });
-  }, [followKey]);
 
   useEffect(() => {
     function onScroll() {
@@ -121,11 +103,7 @@ export default function User() {
                 <TabPanel background="white">
                   <Flex flexDirection="column">
                     <Box position="relative">
-                      <OtherProfile
-                        updateF={() => setFollowKey(!followKey)}
-                        userInfo={userInfo}
-                        id={id}
-                      />
+                      <OtherProfile userInfo={userInfo} id={id} />
                     </Box>
                   </Flex>
                 </TabPanel>
@@ -134,7 +112,6 @@ export default function User() {
                   {mainPosts.length < 1 ? (
                     <Box>
                       <img
-                        // position="absolute"
                         style={{
                           marginTop: "140px",
                           width: "400px",
@@ -159,7 +136,6 @@ export default function User() {
                       </div>
                     </Box>
                   )}
-                  {/* </Box> */}
                 </TabPanel>
               </TabPanels>
             </Tabs>
@@ -174,8 +150,6 @@ export default function User() {
           </Box>
         )}
       </Layout>
-      {/* 익스플로어 페이지는 모든 사람들의 게시물을 볼 수 있고 해시태그 검색이 가능 */}
-
       <footer></footer>
     </div>
   );

@@ -8,12 +8,12 @@ import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import Head from "next/head";
 import Layout from "../../components/Layout";
-import Main from "../../components/Main";
 import SignIn from "../../components/Signin";
 import { Input, InputGroup } from "@chakra-ui/react";
 import IconButtons from "../../components/IconButtons";
 import { FiSearch } from "react-icons/fi";
 import Router from "next/router";
+import OtherPost from "../../components/OtherPost";
 
 const Hashtag = () => {
   const dispatch = useDispatch();
@@ -82,8 +82,6 @@ const Hashtag = () => {
                 maxWidth="350px"
                 borderRadius="12px"
                 backgroundColor="white"
-                // position="fixed"
-                // top="100px"
               >
                 <Input
                   placeholder="해시태그 검색"
@@ -109,7 +107,7 @@ const Hashtag = () => {
                   }}
                 >
                   {mainPosts.map((post, index) => (
-                    <Main key={index} post={post} />
+                    <OtherPost key={index} post={post} />
                   ))}
                 </div>
               ) : (
@@ -130,8 +128,6 @@ const Hashtag = () => {
           <SignIn />
         )}
       </Layout>
-      {/* 메인페이지는 팔로우한 사람들의 게시글이 보이도록! */}
-
       <footer></footer>
     </div>
   );

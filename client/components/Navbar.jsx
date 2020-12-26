@@ -15,26 +15,19 @@ import {
 } from "@chakra-ui/react";
 import { FaCompass, FaUserCircle } from "react-icons/fa";
 import { RiHomeFill } from "react-icons/ri";
-import React, { useState } from "react";
+import React from "react";
 import IconButtons from "./IconButtons";
 import ModalBox from "./ModalBox";
 import Link from "next/link";
-import {
-  FOLLOW_REQUEST,
-  LOAD_FOLLOWERS_REQUEST,
-  LOAD_FOLLOWINGS_REQUEST,
-  logoutRequestAction,
-  UNFOLLOW_REQUEST,
-} from "../reducers/user";
+import { logoutRequestAction } from "../reducers/user";
 
 import { useDispatch, useSelector } from "react-redux";
 
 const Navbar = () => {
   const dispatch = useDispatch();
-  const { me, followDone, unfollowDone } = useSelector((state) => state.user);
+  const { me } = useSelector((state) => state.user);
 
   const { isOpen, onClose, onOpen } = useDisclosure();
-  const [toggle, setToggle] = useState(false);
 
   const onLogout = () => {
     console.log("로그아웃!");
@@ -43,40 +36,6 @@ const Navbar = () => {
 
   const FollowOpen = () => {
     onOpen();
-  };
-
-  const handleUnFollow = (id) => {
-    dispatch({
-      type: UNFOLLOW_REQUEST,
-      data: id,
-    });
-    if (unfollowDone) {
-      dispatch({
-        type: LOAD_FOLLOWERS_REQUEST,
-      });
-      dispatch({
-        type: LOAD_FOLLOWINGS_REQUEST,
-      });
-      setToggle(true);
-      onClose();
-    }
-  };
-
-  const handleFollow = (id) => {
-    dispatch({
-      type: FOLLOW_REQUEST,
-      data: id,
-    });
-    if (followDone) {
-      dispatch({
-        type: LOAD_FOLLOWERS_REQUEST,
-      });
-      dispatch({
-        type: LOAD_FOLLOWINGS_REQUEST,
-      });
-      setToggle(false);
-      onClose();
-    }
   };
 
   return (
@@ -128,7 +87,7 @@ const Navbar = () => {
               <>
                 {me.Followers.map((item, index) => (
                   <Flex alignItems="center" padding="2px 0px" key={index}>
-                    <Link href={`/profile/${item.id}`}>
+                    <Link href={`/user/${item.id}`}>
                       <a>
                         <Avatar
                           onClick={onClose}
@@ -144,19 +103,6 @@ const Navbar = () => {
                       margin="0px 8px"
                       readOnly
                     />
-
-                    <>
-                      {me.Followings.filter((user) => user.id === item.id) ===
-                        null || toggle ? (
-                        <Button onClick={() => handleFollow(item.id)}>
-                          팔로우
-                        </Button>
-                      ) : (
-                        <Button onClick={() => handleUnFollow(item.id)}>
-                          언팔로우
-                        </Button>
-                      )}
-                    </>
                   </Flex>
                 ))}
               </>

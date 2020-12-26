@@ -1,18 +1,9 @@
 import Head from "next/head";
 import Layout from "../components/Layout";
 import SignIn from "../components/Signin";
-
 import { useDispatch, useSelector } from "react-redux";
-import {
-  LOAD_POSTS_REQUEST,
-  LOAD_POST_REQUEST,
-  LOAD_USER_POSTS_REQUEST,
-} from "../reducers/post";
-import {
-  LOAD_FOLLOWERS_REQUEST,
-  LOAD_FOLLOWINGS_REQUEST,
-  LOAD_MY_INFO_REQUEST,
-} from "../reducers/user";
+import { LOAD_POSTS_REQUEST, LOAD_POST_REQUEST } from "../reducers/post";
+import { LOAD_MY_INFO_REQUEST } from "../reducers/user";
 import wrapper from "../store/configureStore";
 import { END } from "redux-saga";
 import axios from "axios";
@@ -45,12 +36,6 @@ export default function Home() {
   lastPost.sort(function (a, b) {
     return b[sortingField] - a[sortingField];
   });
-
-  // useEffect(() => {
-  //   dispatch({
-  //     type: LOAD_POSTS_REQUEST,
-  //   });
-  // }, []);
 
   useEffect(() => {
     function onScroll() {
@@ -111,8 +96,6 @@ export default function Home() {
           <SignIn />
         )}
       </Layout>
-      {/* 메인페이지는 팔로우한 사람들의 게시글이 보이도록! */}
-
       <footer></footer>
     </div>
   );

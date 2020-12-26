@@ -123,7 +123,6 @@ export default function Profile() {
                   {myPosts.length < 1 ? (
                     <Box>
                       <img
-                        // position="absolute"
                         style={{
                           marginTop: "140px",
                           width: "400px",
@@ -148,7 +147,6 @@ export default function Profile() {
                       </div>
                     </Box>
                   )}
-                  {/* </Box> */}
                 </TabPanel>
 
                 <TabPanel background="white" maxHeight="600px">
@@ -171,8 +169,6 @@ export default function Profile() {
           </Box>
         )}
       </Layout>
-      {/* 익스플로어 페이지는 모든 사람들의 게시물을 볼 수 있고 해시태그 검색이 가능 */}
-
       <footer></footer>
     </div>
   );

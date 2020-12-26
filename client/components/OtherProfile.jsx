@@ -13,17 +13,24 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import IconButtons from "./IconButtons";
-import React from "react";
+import React, { useState } from "react";
 import { HiDotsVertical } from "react-icons/hi";
 import ModalBox from "./ModalBox";
 import { useDispatch, useSelector } from "react-redux";
-import { UNFOLLOW_REQUEST, FOLLOW_REQUEST } from "../reducers/user";
+import {
+  UNFOLLOW_REQUEST,
+  FOLLOW_REQUEST,
+  LOAD_FOLLOWERS_REQUEST,
+  LOAD_FOLLOWINGS_REQUEST,
+  LOAD_USER_REQUEST,
+} from "../reducers/user";
 
-const OtherProfile = ({ updateF, userInfo, id }) => {
+const OtherProfile = ({ userInfo, id }) => {
   const toast = useToast();
   const { isOpen, onClose, onOpen } = useDisclosure();
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.user);
+  const [toggle, setToggle] = useState(false);
 
   const isFollowing = me?.Followings.findIndex(
     (user) => user.id === userInfo.id
@@ -32,17 +39,42 @@ const OtherProfile = ({ updateF, userInfo, id }) => {
   const handleUnFollow = (id) => {
     dispatch({
       type: UNFOLLOW_REQUEST,
-      data: parseInt(id),
+      data: parseInt(id, 10),
     });
-    updateF();
+
+    dispatch({
+      type: LOAD_FOLLOWERS_REQUEST,
+    });
+    dispatch({
+      type: LOAD_FOLLOWINGS_REQUEST,
+    });
+
+    dispatch({
+      type: LOAD_USER_REQUEST,
+      data: id,
+    });
+    setToggle(true);
+    onClose();
   };
 
   const handleFollow = (id) => {
     dispatch({
       type: FOLLOW_REQUEST,
-      data: parseInt(id),
+      data: parseInt(id, 10),
     });
-    updateF();
+
+    dispatch({
+      type: LOAD_FOLLOWERS_REQUEST,
+    });
+    dispatch({
+      type: LOAD_FOLLOWINGS_REQUEST,
+    });
+    dispatch({
+      type: LOAD_USER_REQUEST,
+      data: id,
+    });
+    setToggle(false);
+    onClose();
   };
 
   const handleReport = async () => {
@@ -110,7 +142,7 @@ const OtherProfile = ({ updateF, userInfo, id }) => {
       <ModalBox
         context={
           <>
-            {isFollowing === -1 ? (
+            {isFollowing === -1 || toggle ? (
               <Button
                 onClick={() => handleFollow(id)}
                 name="follow"

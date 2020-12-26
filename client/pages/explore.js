@@ -91,8 +91,6 @@ export default function Explore() {
                 maxWidth="350px"
                 borderRadius="12px"
                 backgroundColor="white"
-                // position="fixed"
-                // top="100px"
               >
                 <Input
                   placeholder="해시태그 검색"
@@ -119,8 +117,6 @@ export default function Explore() {
           <SignIn />
         )}
       </Layout>
-      {/* 익스플로어 페이지는 모든 사람들의 게시물을 볼 수 있고 해시태그 검색이 가능 */}
-
       <footer></footer>
     </div>
   );
