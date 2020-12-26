@@ -15,49 +15,34 @@ import {
 } from "@chakra-ui/react";
 import { FaCompass, FaUserCircle } from "react-icons/fa";
 import { RiHomeFill } from "react-icons/ri";
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import IconButtons from "./IconButtons";
 import ModalBox from "./ModalBox";
 import Link from "next/link";
 import {
   FOLLOW_REQUEST,
+  LOAD_FOLLOWERS_REQUEST,
+  LOAD_FOLLOWINGS_REQUEST,
   logoutRequestAction,
   UNFOLLOW_REQUEST,
 } from "../reducers/user";
 
 import { useDispatch, useSelector } from "react-redux";
-import {
-  LOAD_FOLLOWERS_REQUEST,
-  LOAD_FOLLOWINGS_REQUEST,
-} from "../reducers/user";
 
 const Navbar = () => {
   const dispatch = useDispatch();
-  const { me } = useSelector((state) => state.user);
+  const { me, followDone, unfollowDone } = useSelector((state) => state.user);
+
+  const { isOpen, onClose, onOpen } = useDisclosure();
+  const [toggle, setToggle] = useState(false);
 
   const onLogout = () => {
     console.log("로그아웃!");
     dispatch(logoutRequestAction());
   };
 
-  // useEffect(() => {
-  //   dispatch({
-  //     type: LOAD_FOLLOWERS_REQUEST,
-  //   });
-  //   dispatch({
-  //     type: LOAD_FOLLOWINGS_REQUEST,
-  //   });
-  // }, []);
-
   const FollowOpen = () => {
     onOpen();
-
-    // dispatch({
-    //   type: LOAD_FOLLOWERS_REQUEST,
-    // });
-    // dispatch({
-    //   type: LOAD_FOLLOWINGS_REQUEST,
-    // });
   };
 
   const handleUnFollow = (id) => {
@@ -65,12 +50,16 @@ const Navbar = () => {
       type: UNFOLLOW_REQUEST,
       data: id,
     });
-    // dispatch({
-    //   type: LOAD_FOLLOWERS_REQUEST,
-    // });
-    // dispatch({
-    //   type: LOAD_FOLLOWINGS_REQUEST,
-    // });
+    if (unfollowDone) {
+      dispatch({
+        type: LOAD_FOLLOWERS_REQUEST,
+      });
+      dispatch({
+        type: LOAD_FOLLOWINGS_REQUEST,
+      });
+      setToggle(true);
+      onClose();
+    }
   };
 
   const handleFollow = (id) => {
@@ -78,15 +67,18 @@ const Navbar = () => {
       type: FOLLOW_REQUEST,
       data: id,
     });
-    // dispatch({
-    //   type: LOAD_FOLLOWERS_REQUEST,
-    // });
-    // dispatch({
-    //   type: LOAD_FOLLOWINGS_REQUEST,
-    // });
+    if (followDone) {
+      dispatch({
+        type: LOAD_FOLLOWERS_REQUEST,
+      });
+      dispatch({
+        type: LOAD_FOLLOWINGS_REQUEST,
+      });
+      setToggle(false);
+      onClose();
+    }
   };
 
-  const { isOpen, onClose, onOpen } = useDisclosure();
   return (
     <Flex
       alignItems="center"
@@ -134,7 +126,7 @@ const Navbar = () => {
           <>
             {me?.Followers.length > 0 ? (
               <>
-                {me?.Followers.map((item, index) => (
+                {me.Followers.map((item, index) => (
                   <Flex alignItems="center" padding="2px 0px" key={index}>
                     <Link href={`/profile/${item.id}`}>
                       <a>
@@ -152,17 +144,16 @@ const Navbar = () => {
                       margin="0px 8px"
                       readOnly
                     />
-                    {/* 이 부분 에러날 수 있음 코딩문제로!! */}
+
                     <>
-                      {me?.Followings.findIndex(
-                        (user) => user.id === item.id
-                      ) === 0 ? (
-                        <Button onClick={() => handleUnFollow(item.id)}>
-                          언팔로우
-                        </Button>
-                      ) : (
+                      {me.Followings.filter((user) => user.id === item.id) ===
+                        null || toggle ? (
                         <Button onClick={() => handleFollow(item.id)}>
                           팔로우
+                        </Button>
+                      ) : (
+                        <Button onClick={() => handleUnFollow(item.id)}>
+                          언팔로우
                         </Button>
                       )}
                     </>

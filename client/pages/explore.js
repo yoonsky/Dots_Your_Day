@@ -1,7 +1,6 @@
 import { Box, Flex, Input, InputGroup } from "@chakra-ui/react";
 import Head from "next/head";
 import Layout from "../components/Layout";
-import Main from "../components/Main";
 import IconButtons from "../components/IconButtons";
 import { useEffect, useState } from "react";
 import { FiSearch } from "react-icons/fi";
@@ -18,6 +17,7 @@ import { END } from "redux-saga";
 import axios from "axios";
 import Router from "next/router";
 import SignIn from "../components/Signin";
+import OtherPost from "../components/OtherPost";
 
 export default function Explore() {
   const dispatch = useDispatch();
@@ -31,6 +31,8 @@ export default function Explore() {
   const handleSearch = () => {
     Router.push(`/hashtag/${input}`);
   };
+
+  const ohtersPost = mainPosts.filter((item) => item.UsesId !== me.id);
 
   useEffect(() => {
     if (!me?.id) {
@@ -108,8 +110,8 @@ export default function Explore() {
               </InputGroup>
             </div>
             <Box marginTop="140px">
-              {mainPosts.map((post, index) => (
-                <Main key={index} post={post} />
+              {ohtersPost.map((post, index) => (
+                <OtherPost key={index} post={post} />
               ))}
             </Box>
           </>

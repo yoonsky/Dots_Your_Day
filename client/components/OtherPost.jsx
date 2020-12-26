@@ -140,16 +140,25 @@ const OtherPost = ({ post }) => {
       width="100%"
     >
       <Flex padding="15px 10px" alignItems="center">
-        <Link href={`/profile/${post.User.id}`}>
-          <a>
-            <Avatar
-              name={post.User.nickname}
-              size="sm"
-              bg="blue.500"
-              margin="0 6px"
-            />
-          </a>
-        </Link>
+        {post.User.id !== me.id ? (
+          <Link href={`/user/${post.User.id}`}>
+            <a>
+              <Avatar
+                name={post.User.nickname}
+                size="sm"
+                bg="blue.500"
+                margin="0 6px"
+              />
+            </a>
+          </Link>
+        ) : (
+          <Avatar
+            name={post.User.nickname}
+            size="sm"
+            bg="blue.500"
+            margin="0 6px"
+          />
+        )}
 
         <Text fontWeight="bold">{post.User.nickname}</Text>
         <Spacer />
@@ -182,9 +191,9 @@ const OtherPost = ({ post }) => {
       </Flex>
       <Accordion allowMultiple width="100%">
         {/* <AccordionBox title="나의 기록" text={post.content} /> */}
-        <Flex padding="8px 16">
+        <div style={{ padding: "8px 16px" }}>
           <HashtagSplit postData={post.content} />
-        </Flex>
+        </div>
 
         <Flex borderTop="1px solid #e7e7e7">
           <Input
@@ -211,16 +220,25 @@ const OtherPost = ({ post }) => {
             <>
               {post.Comments.map((item) => (
                 <Flex alignItems="center" padding="2px 0px" key={item.id}>
-                  <Link href={`/profile/${post.User.id}`}>
-                    <a>
-                      <Avatar
-                        name={item.User.nickname}
-                        size="sm"
-                        bg="blue.500"
-                        margin="0 6px"
-                      />
-                    </a>
-                  </Link>
+                  {post.User.id !== me.id ? (
+                    <Link href={`/user/${post.User.id}`}>
+                      <a>
+                        <Avatar
+                          name={post.User.nickname}
+                          size="sm"
+                          bg="blue.500"
+                          margin="0 6px"
+                        />
+                      </a>
+                    </Link>
+                  ) : (
+                    <Avatar
+                      name={post.User.nickname}
+                      size="sm"
+                      bg="blue.500"
+                      margin="0 6px"
+                    />
+                  )}
                   <Input type="text" value={item.content} readOnly />
                 </Flex>
               ))}

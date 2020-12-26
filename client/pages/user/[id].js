@@ -9,42 +9,56 @@ import {
 } from "@chakra-ui/react";
 import Head from "next/head";
 import Layout from "../../components/Layout";
-import "../../styles/Home.module.css";
-
 import { useDispatch, useSelector } from "react-redux";
-import {
-  LOAD_FOLLOWERS_REQUEST,
-  LOAD_FOLLOWINGS_REQUEST,
-  LOAD_USER_REQUEST,
-} from "../../reducers/user";
 import { END } from "redux-saga";
 import wrapper from "../../store/configureStore";
 import axios from "axios";
-import { useEffect } from "react";
-import OtherProfile from "../../components/OtherProfile";
+import { useEffect, useState } from "react";
+import {
+  LOAD_FOLLOWERS_REQUEST,
+  LOAD_FOLLOWINGS_REQUEST,
+  LOAD_MY_INFO_REQUEST,
+  LOAD_USER_REQUEST,
+} from "../../reducers/user";
 import { LOAD_USER_POSTS_REQUEST } from "../../reducers/post";
-import { useRouter } from "next/router";
-import Main from "../../components/Main";
 import Router from "next/router";
-import Write from "../../components/Write";
-import ProfileBox from "../../components/ProfileBox";
+import OtherPost from "../../components/OtherPost";
+import { useRouter } from "next/router";
+import OtherProfile from "../../components/OtherProfile";
 
 export default function User() {
   const dispatch = useDispatch();
   const router = useRouter();
   const { id } = router.query;
-  const { userInfo } = useSelector((state) => state.user);
 
-  const { mainPosts, hasMorePosts, loadPostsLoading } = useSelector(
-    (state) => state.post
-  );
+  const {
+    mainPosts,
+    hasMorePosts,
+    loadPostsLoading,
+    // retweetError,
+  } = useSelector((state) => state.post);
+  const { userInfo, me } = useSelector((state) => state.user);
 
   // console.log(userInfo);
+
+  // const myPosts = mainPosts.filter((item) => item.UserId === me?.id);
+
+  const [followKey, setFollowKey] = useState(true);
+
+  useEffect(() => {
+    dispatch({
+      type: LOAD_FOLLOWERS_REQUEST,
+    });
+    dispatch({
+      type: LOAD_FOLLOWINGS_REQUEST,
+    });
+  }, [followKey]);
+
   useEffect(() => {
     function onScroll() {
       if (
         window.scrollY + document.documentElement.clientHeight >
-        document.documentElement.scrollHeight - 500
+        document.documentElement.scrollHeight - 300
       ) {
         if (hasMorePosts && !loadPostsLoading) {
           const lastId = mainPosts[mainPosts.length - 1]?.id;
@@ -63,6 +77,16 @@ export default function User() {
     };
   }, [mainPosts.length, hasMorePosts, id, loadPostsLoading]);
 
+  useEffect(() => {
+    if (!me?.id) {
+      Router.push("/");
+    }
+  }, [me?.id]);
+
+  if (!me) {
+    return null;
+  }
+
   return (
     <div>
       <Head>
@@ -70,53 +94,69 @@ export default function User() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
-        {userInfo ? (
+        {userInfo?.id ? (
           <>
-            <Tabs variant="unstyled" width="100%">
+            <Tabs variant="unstyled" width="100%" position="relative">
               <TabList
-                mb="1em"
-                display="flex"
-                paddingTop="80px"
-                paddingBottom="20px"
-                maxWidth="600px"
                 width="100%"
                 top="70px"
+                padding="30px"
                 zIndex="1"
                 background="white"
                 margin="auto"
                 justifyContent="space-around"
+                position="fixed"
+                // top="0"
               >
-                <Tab p="14px" fontWeight="bold">
-                  유저정보
-                </Tab>
-                <Tab p="16px" fontWeight="bold">
-                  게시글
-                </Tab>
-                )}
+                <Flex width="400px" justifyContent="space-around">
+                  <Tab p="14px" fontWeight="bold">
+                    유저 정보
+                  </Tab>
+                  <Tab p="16px" fontWeight="bold">
+                    유저 게시글
+                  </Tab>
+                </Flex>
               </TabList>
               <TabPanels display="flex" justifyContent="center">
                 <TabPanel background="white">
                   <Flex flexDirection="column">
-                    <Box>
-                      <OtherProfile userInfo={userInfo} id={id} />
+                    <Box position="relative">
+                      <OtherProfile
+                        updateF={() => setFollowKey(!followKey)}
+                        userInfo={userInfo}
+                        id={id}
+                      />
                     </Box>
                   </Flex>
                 </TabPanel>
 
-                <TabPanel background="white" maxHeight="600px" overflow="auto">
+                <TabPanel background="white" maxHeight="600px">
                   {mainPosts.length < 1 ? (
-                    <Box marginTop="40px" position="relative">
+                    <Box>
                       <img
-                        position="absolute"
-                        style={{ width: "500px", border: "2px solid #e7e7e7" }}
+                        // position="absolute"
+                        style={{
+                          marginTop: "140px",
+                          width: "400px",
+                          border: "2px solid #e7e7e7",
+                        }}
                         src="https://i.ibb.co/nQSJq7C/nofd.jpg"
                       />
                     </Box>
                   ) : (
-                    <Box marginTop="40px" position="relative">
-                      {mainPosts.map((post) => (
-                        <Main key={post.id} post={post} />
-                      ))}
+                    <Box position="relative">
+                      <div
+                        style={{
+                          width: "400px",
+                          position: "absolute",
+                          top: "120px",
+                          right: "-208px",
+                        }}
+                      >
+                        {mainPosts.map((post) => (
+                          <OtherPost key={post.id} post={post} />
+                        ))}
+                      </div>
                     </Box>
                   )}
                   {/* </Box> */}
@@ -148,14 +188,14 @@ export const getServerSideProps = wrapper.getServerSideProps(
     if (context.req && cookie) {
       axios.defaults.headers.Cookie = cookie;
     }
-    // context.store.dispatch({
-    //   type: LOAD_USER_POSTS_REQUEST,
-    //   data: context.params.id,
-    // });
+    context.store.dispatch({
+      type: LOAD_USER_POSTS_REQUEST,
+      data: context.params.id,
+    });
 
-    // context.store.dispatch({
-    //   type: LOAD_MY_INFO_REQUEST,
-    // });
+    context.store.dispatch({
+      type: LOAD_MY_INFO_REQUEST,
+    });
 
     context.store.dispatch({
       type: LOAD_USER_REQUEST,

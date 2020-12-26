@@ -26,7 +26,6 @@ import {
   UNLIKE_POST_REQUEST,
 } from "../reducers/post";
 import Link from "next/link";
-import { FOLLOW_REQUEST, UNFOLLOW_REQUEST } from "../reducers/user";
 import HashtagSplit from "./HashtagSplit";
 
 const Main = ({ post }) => {
@@ -39,20 +38,6 @@ const Main = ({ post }) => {
   const [focus, setFocus] = useState(false);
   const { isOpen, onClose, onOpen } = useDisclosure();
   const dispatch = useDispatch();
-
-  const handleUnFollow = () => {
-    dispatch({
-      type: UNFOLLOW_REQUEST,
-      data: post.User.id,
-    });
-  };
-
-  const handleFollow = () => {
-    dispatch({
-      type: FOLLOW_REQUEST,
-      data: post.User.id,
-    });
-  };
 
   const onLike = useCallback(() => {
     if (!id) {
@@ -124,7 +109,7 @@ const Main = ({ post }) => {
     [input, id]
   );
 
-  // const liked = post?.Likers.find((v) => v.id === id);
+  const liked = post?.Likers.find((v) => v.id === id);
 
   return (
     <Box
@@ -157,7 +142,7 @@ const Main = ({ post }) => {
         )}
       </Box>
       <Flex padding="15px 10px" alignItems="center">
-        {true ? (
+        {liked ? (
           <IconButtons
             size={"22px"}
             onClick={onUnLike}

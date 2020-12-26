@@ -37,14 +37,14 @@ const ProfileBox = ({ me }) => {
   const handleClick = (e) => {
     const { name } = e.target;
 
-    if (input === "") {
-      setInputCheck(true);
-      setTimeout(() => {
-        setInputCheck(false);
-      }, 6000);
-    } else {
-      if (name === "nicknameEdit") {
-        // 닉네임 수정을 요청했을 때
+    if (name === "nicknameEdit") {
+      // 닉네임 수정을 요청했을 때
+      if (input === "") {
+        setInputCheck(true);
+        setTimeout(() => {
+          setInputCheck(false);
+        }, 6000);
+      } else {
         dispatch({
           type: CHANGE_NICKNAME_REQUEST,
           data: input,
@@ -60,24 +60,24 @@ const ProfileBox = ({ me }) => {
           isClosable: true,
         });
         setInput("");
-      } else {
-        // 인사말 수정을 요청했을 때
-        dispatch({
-          type: CHANGE_GREET_REQUEST,
-          data: input,
-        });
-
-        changeGreetDone && //여기도 에러 가능성 다분!
-          onClose();
-        toast({
-          title: "Modification completed.",
-          description: "인사말 변경이 완료되었습니다.",
-          status: "success",
-          duration: 5000,
-          isClosable: true,
-        });
-        setInput("");
       }
+    } else {
+      // 인사말 수정을 요청했을 때
+      dispatch({
+        type: CHANGE_GREET_REQUEST,
+        data: input,
+      });
+
+      changeGreetDone && //여기도 에러 가능성 다분!
+        onClose();
+      toast({
+        title: "Modification completed.",
+        description: "인사말 변경이 완료되었습니다.",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
+      setInput("");
     }
   };
 

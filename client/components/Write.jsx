@@ -108,9 +108,10 @@ const Write = ({ me }) => {
       backgroundColor="white"
       borderRadius="6px"
       width="400px"
-      position="absolute"
-      top="140px"
-      right="-200px"
+      // position="absolute"
+      marginTop="140px"
+      // top=""
+      right="200px"
     >
       <Flex padding="20px 10px" alignItems="center">
         <Avatar name={me?.nickname} size="sm" bg="blue.500" margin="0 6px" />

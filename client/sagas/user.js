@@ -140,7 +140,7 @@ function* signup(action) {
 }
 
 function loadUserAPI(data) {
-  return axios.get(`/profile/${data}`);
+  return axios.get(`/user/${data}`);
 }
 
 function* loadUser(action) {

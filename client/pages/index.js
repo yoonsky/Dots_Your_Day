@@ -1,7 +1,6 @@
 import Head from "next/head";
 import Layout from "../components/Layout";
 import SignIn from "../components/Signin";
-import Main from "../components/Main";
 
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -18,6 +17,7 @@ import wrapper from "../store/configureStore";
 import { END } from "redux-saga";
 import axios from "axios";
 import { useEffect } from "react";
+import OtherPost from "../components/OtherPost";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -91,7 +91,7 @@ export default function Home() {
                 }}
               >
                 {lastPost.map((post, index) => (
-                  <Main key={index} post={post} />
+                  <OtherPost key={index} post={post} />
                 ))}
               </div>
             ) : (
@@ -101,7 +101,7 @@ export default function Home() {
                 }}
               >
                 <img
-                  style={{ maxWidth: "700px", width: "90%", margin: "auto" }}
+                  style={{ maxWidth: "600px", width: "90%", margin: "auto" }}
                   src="https://i.ibb.co/P5cPrJT/newnewn.jpg"
                 ></img>
               </div>

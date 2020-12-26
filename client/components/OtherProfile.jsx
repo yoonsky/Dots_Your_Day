@@ -19,13 +19,11 @@ import ModalBox from "./ModalBox";
 import { useDispatch, useSelector } from "react-redux";
 import { UNFOLLOW_REQUEST, FOLLOW_REQUEST } from "../reducers/user";
 
-const OtherProfile = ({ userInfo, id }) => {
+const OtherProfile = ({ updateF, userInfo, id }) => {
   const toast = useToast();
   const { isOpen, onClose, onOpen } = useDisclosure();
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.user);
-
-  const { nickname, greet, Followers, Followings } = userInfo;
 
   const isFollowing = me?.Followings.findIndex(
     (user) => user.id === userInfo.id
@@ -36,6 +34,7 @@ const OtherProfile = ({ userInfo, id }) => {
       type: UNFOLLOW_REQUEST,
       data: parseInt(id),
     });
+    updateF();
   };
 
   const handleFollow = (id) => {
@@ -43,6 +42,7 @@ const OtherProfile = ({ userInfo, id }) => {
       type: FOLLOW_REQUEST,
       data: parseInt(id),
     });
+    updateF();
   };
 
   const handleReport = async () => {
@@ -63,15 +63,21 @@ const OtherProfile = ({ userInfo, id }) => {
   return (
     <Box
       border="1px solid #e9e9e9"
-      margin="40px 0px"
+      // margin="40px 0px"
       backgroundColor="white"
-      borderRadius="6px"
-      maxWidth="600px"
-      width="100%"
+      width="400px"
+      position="absolute"
+      top="140px"
+      right="-200px"
     >
       <Flex padding="15px 10px" alignItems="center">
-        <Avatar name={nickname} size="sm" bg="blue.500" margin="0 6px" />
-        <Text fontWeight="bold">{nickname}</Text>
+        <Avatar
+          name={userInfo.nickname}
+          size="sm"
+          bg="blue.500"
+          margin="0 6px"
+        />
+        <Text fontWeight="bold">{userInfo.nickname}</Text>
         <Spacer />
         <IconButtons onClick={onOpen} icon={<HiDotsVertical />} />
       </Flex>
@@ -86,25 +92,25 @@ const OtherProfile = ({ userInfo, id }) => {
         </Center> */}
       </Box>
       <Flex padding="20px" alignItems="center">
-        <Text fontWeight="bold">{greet}</Text>
+        <Text fontWeight="bold">{userInfo.greet}</Text>
         {/* 좋아요 숫자 */}
 
         <Spacer />
 
         <Stat textAlign="right">
           <StatLabel>Follower</StatLabel>
-          <StatNumber>{Followers.length}</StatNumber>
+          <StatNumber>{userInfo.Followers}</StatNumber>
         </Stat>
         <Stat textAlign="right">
           <StatLabel>Following</StatLabel>
-          <StatNumber>{Followings.length}</StatNumber>
+          <StatNumber>{userInfo.Followings}</StatNumber>
         </Stat>
       </Flex>
 
       <ModalBox
         context={
           <>
-            {isFollowing ? (
+            {isFollowing === -1 ? (
               <Button
                 onClick={() => handleFollow(id)}
                 name="follow"

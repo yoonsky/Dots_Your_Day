@@ -10,7 +10,7 @@ import Head from "next/head";
 import Layout from "../../components/Layout";
 import Main from "../../components/Main";
 import SignIn from "../../components/Signin";
-import { Box, Input, InputGroup } from "@chakra-ui/react";
+import { Input, InputGroup } from "@chakra-ui/react";
 import IconButtons from "../../components/IconButtons";
 import { FiSearch } from "react-icons/fi";
 import Router from "next/router";

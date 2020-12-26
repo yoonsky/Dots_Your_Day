@@ -9,8 +9,6 @@ import {
 } from "@chakra-ui/react";
 import Head from "next/head";
 import Layout from "../components/Layout";
-import "../styles/Home.module.css";
-
 import { useDispatch, useSelector } from "react-redux";
 import {
   LOAD_FOLLOWERS_REQUEST,
@@ -26,7 +24,6 @@ import Main from "../components/Main";
 import Router from "next/router";
 import Write from "../components/Write";
 import ProfileBox from "../components/ProfileBox";
-import styled from "styled-components";
 
 export default function Profile() {
   const dispatch = useDispatch();
@@ -36,7 +33,7 @@ export default function Profile() {
     (state) => state.post
   );
 
-  const myPosts = mainPosts.filter((item) => item.UserId === me.id);
+  const myPosts = mainPosts.filter((item) => item.UserId === me?.id);
 
   useEffect(() => {
     dispatch({
@@ -123,11 +120,15 @@ export default function Profile() {
                 </TabPanel>
 
                 <TabPanel background="white" maxHeight="600px">
-                  {me.Posts.length < 1 ? (
+                  {myPosts.length < 1 ? (
                     <Box>
                       <img
-                        position="absolute"
-                        style={{ width: "500px", border: "2px solid #e7e7e7" }}
+                        // position="absolute"
+                        style={{
+                          marginTop: "140px",
+                          width: "400px",
+                          border: "2px solid #e7e7e7",
+                        }}
                         src="https://i.ibb.co/nQSJq7C/nofd.jpg"
                       />
                     </Box>
