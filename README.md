@@ -1,5 +1,9 @@
 # 한장의 사진과 글로 하루를 공유하는 SNS
 ## Dot Your Day
+
+## stack
+ + Next.js, React.js, Redux-saga, styled-components, node.js ,mysql, express.js, 
+
 ## 개발환경
  + Next.js와 React.js를 활용하여 프론트단을 구현하였습니다.
  + 개발환경 서버와 DB는 Node.js-Express.js 와 MySql 사용하였습니다.
