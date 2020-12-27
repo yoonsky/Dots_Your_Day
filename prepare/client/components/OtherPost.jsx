@@ -36,8 +36,6 @@ const OtherPost = ({ post }) => {
   const { me } = useSelector((state) => state.user);
   const id = me?.id;
 
-  console.log(post);
-
   const isFollowing = me?.Followings.findIndex(
     (user) => user.id === post.User.id
   );
