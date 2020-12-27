@@ -29,7 +29,7 @@ passportConfig();
 
 app.use(
   cors({
-    origin: ["http://localhost:3000", "dotyourday.com"],
+    origin: ["http://localhost:3000", "dotyourday.com", "http://13.125.13.8/"],
     // origin:true 이것도 가능하다.
     credentials: true,
   })
