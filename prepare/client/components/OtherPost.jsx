@@ -15,7 +15,6 @@ import IconButtons from "./IconButtons";
 import React, { useCallback, useState } from "react";
 import { HiDotsVertical } from "react-icons/hi";
 import { FaRegHeart, FaHeart, FaTelegramPlane } from "react-icons/fa";
-import { BsCloud } from "react-icons/bs";
 import AccordionBox from "./AccordionBox";
 import ModalBox from "./ModalBox";
 import { useDispatch, useSelector } from "react-redux";
@@ -36,6 +35,8 @@ const OtherPost = ({ post }) => {
   const { removePostLoading } = useSelector((state) => state.post);
   const { me } = useSelector((state) => state.user);
   const id = me?.id;
+
+  console.log(post);
 
   const isFollowing = me?.Followings.findIndex(
     (user) => user.id === post.User.id

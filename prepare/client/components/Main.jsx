@@ -36,6 +36,8 @@ const Main = ({ post }) => {
   const { me } = useSelector((state) => state.user);
   const id = me?.id;
 
+  console.log(post);
+
   const [input, setInput] = useState("");
   const [focus, setFocus] = useState(false);
   const { isOpen, onClose, onOpen } = useDisclosure();
