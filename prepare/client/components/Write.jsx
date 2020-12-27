@@ -22,7 +22,6 @@ import {
 } from "../reducers/post";
 
 import Router from "next/router";
-import { backUrl } from "../config/config";
 
 const Write = ({ me }) => {
   const toast = useToast();
@@ -111,13 +110,7 @@ const Write = ({ me }) => {
       </Flex>
       <Box minWidth="380px" minHeight="380px">
         {imagePaths.map((v) => (
-          <Image
-            key={v}
-            width="100%"
-            objectFit="cover"
-            src={`${backUrl}/${v}`}
-            alt={v}
-          />
+          <Image key={v} width="100%" objectFit="cover" src={v} alt={v} />
         ))}
       </Box>
       <Flex padding="20px" alignItems="center">

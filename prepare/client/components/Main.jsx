@@ -140,7 +140,7 @@ const Main = ({ post }) => {
           <Image
             width="100%"
             objectFit="cover"
-            src={`${backUrl}/${post?.Images[0]?.src}`}
+            src={`${post?.Images[0]?.src}`}
           />
         )}
       </Box>
