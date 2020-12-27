@@ -57,6 +57,10 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.get("/", (req, res) => {
+  res.send("hello world");
+});
+
 app.use("/posts", postsRouter); //분리한 라우터 호출
 app.use("/post", postRouter); //분리한 라우터 호출
 app.use("/user", userRouter); //분리한 라우터 호출
