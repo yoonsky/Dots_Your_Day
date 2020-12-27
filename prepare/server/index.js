@@ -14,6 +14,8 @@ const passport = require("passport");
 const dotenv = require("dotenv");
 const morgan = require("morgan");
 const path = require("path");
+const hpp = require("hpp");
+const helmet = require("helmet");
 
 dotenv.config();
 db.sequelize
@@ -27,11 +29,19 @@ passportConfig();
 
 app.use(
   cors({
-    origin: true,
+    origin: ["http://localhost:3000", "dotyourday.com"],
     // origin:true 이것도 가능하다.
     credentials: true,
   })
 );
+
+if (process.env.NODE_ENV === "production") {
+  app.use(morgan("combined"));
+  app.use(hpp());
+  app.use(helmet());
+} else {
+  app.use(morgan("dev"));
+}
 
 app.use("/", express.static(path.join(__dirname, "uploads")));
 app.use(express.json());
@@ -46,7 +56,6 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(morgan("dev"));
 
 app.use("/posts", postsRouter); //분리한 라우터 호출
 app.use("/post", postRouter); //분리한 라우터 호출
