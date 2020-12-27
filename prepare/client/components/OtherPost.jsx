@@ -29,6 +29,7 @@ import Link from "next/link";
 import { FOLLOW_REQUEST, UNFOLLOW_REQUEST } from "../reducers/user";
 import HashtagSplit from "./HashtagSplit";
 import moment from "moment";
+import { backUrl } from "../config/config";
 moment.locale("ko");
 
 const OtherPost = ({ post }) => {
@@ -175,7 +176,7 @@ const OtherPost = ({ post }) => {
           <Image
             width="100%"
             objectFit="cover"
-            src={`http://localhost:5000/${post?.Images[0]?.src}`}
+            src={`${backUrl}/${post?.Images[0]?.src}`}
           />
         )}
       </Box>

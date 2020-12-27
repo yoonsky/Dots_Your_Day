@@ -24,6 +24,7 @@
     "next": "10.0.3",
     "next-images": "^1.6.2",
     "next-redux-wrapper": "^6.0.2",
+    "pm2": "^4.5.1",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-icons": "^4.1.0",

@@ -28,6 +28,7 @@ import {
 } from "../reducers/post";
 import Link from "next/link";
 import HashtagSplit from "./HashtagSplit";
+import { backUrl } from "../config/config";
 moment.locale("ko");
 
 const Main = ({ post }) => {
@@ -139,7 +140,7 @@ const Main = ({ post }) => {
           <Image
             width="100%"
             objectFit="cover"
-            src={`http://localhost:5000/${post?.Images[0]?.src}`}
+            src={`${backUrl}/${post?.Images[0]?.src}`}
           />
         )}
       </Box>

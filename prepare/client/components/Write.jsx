@@ -22,6 +22,7 @@ import {
 } from "../reducers/post";
 
 import Router from "next/router";
+import { backUrl } from "../config/config";
 
 const Write = ({ me }) => {
   const toast = useToast();
@@ -114,7 +115,7 @@ const Write = ({ me }) => {
             key={v}
             width="100%"
             objectFit="cover"
-            src={`http://localhost:5000/${v}`}
+            src={`${backUrl}/${v}`}
             alt={v}
           />
         ))}
