@@ -194,7 +194,7 @@ const Main = ({ post }) => {
             <>
               {post.Comments.map((item) => (
                 <Flex alignItems="center" padding="2px 0px" key={item.id}>
-                  <Link href={`/profile/${post.User.id}`}>
+                  <Link href={`/profile/${item.User.id}`}>
                     <a>
                       <Avatar
                         name={item.User.nickname}
