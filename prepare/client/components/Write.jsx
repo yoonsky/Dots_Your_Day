@@ -19,7 +19,6 @@ import {
   UPLOAD_IMAGES_REQUEST,
   REMOVE_IMAGE,
   ADD_POST_REQUEST,
-  uploadImagesDone,
 } from "../reducers/post";
 
 import Router from "next/router";
@@ -27,7 +26,9 @@ import Router from "next/router";
 const Write = ({ me }) => {
   const toast = useToast();
   const dispatch = useDispatch();
-  const { imagePaths, addPostDone } = useSelector((state) => state.post);
+  const { imagePaths, addPostDone, uploadImagesDone } = useSelector(
+    (state) => state.post
+  );
   const imageInput = useRef();
   const [text, setText] = useState("");
 
