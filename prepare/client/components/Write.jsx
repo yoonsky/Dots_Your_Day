@@ -114,10 +114,10 @@ const Write = ({ me }) => {
         {uploadImagesDone &&
           imagePaths.map((v) => (
             <Image
-              key={v.replace(/\/thumb\//, "/original/")}
+              key={v}
               width="100%"
               objectFit="cover"
-              src={v}
+              src={v.replace(/\/thumb\//, "/original/")}
               alt={v}
             />
           ))}
