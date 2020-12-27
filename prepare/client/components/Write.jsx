@@ -32,8 +32,6 @@ const Write = ({ me }) => {
   const imageInput = useRef();
   const [text, setText] = useState("");
 
-  console.log(imagePaths);
-
   useEffect(() => {
     if (addPostDone) {
       setText("");
