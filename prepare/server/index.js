@@ -63,5 +63,5 @@ app.use("/user", userRouter); //분리한 라우터 호출
 app.use("/hashtag", hashtagRouter); //분리한 라우터 호출
 app.use("/profile", profileRouter); //분리한 라우터 호출
 
-const PORT = 5000;
+const PORT = 80;
 app.listen(PORT, () => console.log(`server running on port ${PORT}`));
