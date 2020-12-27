@@ -29,7 +29,7 @@ passportConfig();
 
 app.use(
   cors({
-    origin: ["http://localhost:3000", "dotyourday.com", "http://13.125.13.8"],
+    origin: ["http://localhost:3000", "http://seob.kr"],
     // origin:true 이것도 가능하다.
     credentials: true,
   })
@@ -52,6 +52,11 @@ app.use(
     saveUninitialized: false,
     resave: false,
     secret: process.env.COOKIE_SECRET,
+    cookie: {
+      httpOnly: true,
+      secure: false,
+      domain: process.env.NODE_ENV === "production" && ".seob.kr",
+    },
   })
 );
 app.use(passport.initialize());
