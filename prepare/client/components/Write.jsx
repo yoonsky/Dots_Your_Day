@@ -19,6 +19,7 @@ import {
   UPLOAD_IMAGES_REQUEST,
   REMOVE_IMAGE,
   ADD_POST_REQUEST,
+  uploadImagesDone,
 } from "../reducers/post";
 
 import Router from "next/router";
@@ -111,9 +112,10 @@ const Write = ({ me }) => {
         <Text fontWeight="bold">{me?.nickname}</Text>
       </Flex>
       <Box minWidth="380px" minHeight="380px">
-        {imagePaths.map((v) => (
-          <Image key={v} width="100%" objectFit="cover" src={v} alt={v} />
-        ))}
+        {uploadImagesDone &&
+          imagePaths.map((v) => (
+            <Image key={v} width="100%" objectFit="cover" src={v} alt={v} />
+          ))}
       </Box>
       <Flex padding="20px" alignItems="center">
         <Text fontWeight="bold">📃 오늘은 어떤 하루였나요?</Text>
