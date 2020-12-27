@@ -28,7 +28,6 @@ import {
 } from "../reducers/post";
 import Link from "next/link";
 import HashtagSplit from "./HashtagSplit";
-import { backUrl } from "../config/config";
 moment.locale("ko");
 
 const Main = ({ post }) => {
