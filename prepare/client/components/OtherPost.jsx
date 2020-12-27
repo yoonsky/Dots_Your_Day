@@ -233,7 +233,7 @@ const OtherPost = ({ post }) => {
                     <Link href={`/user/${post.User.id}`}>
                       <a>
                         <Avatar
-                          name={post.User.nickname}
+                          name={item.User.nickname}
                           size="sm"
                           bg="blue.500"
                           margin="0 6px"
