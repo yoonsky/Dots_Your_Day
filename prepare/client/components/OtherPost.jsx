@@ -230,7 +230,7 @@ const OtherPost = ({ post }) => {
               {post.Comments.map((item) => (
                 <Flex alignItems="center" padding="2px 0px" key={item.id}>
                   {post.User.id !== me.id ? (
-                    <Link href={`/user/${post.User.id}`}>
+                    <Link href={`/user/${item.User.id}`}>
                       <a>
                         <Avatar
                           name={item.User.nickname}
