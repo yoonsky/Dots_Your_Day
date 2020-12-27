@@ -113,7 +113,13 @@ const Write = ({ me }) => {
       <Box minWidth="380px" minHeight="380px">
         {uploadImagesDone &&
           imagePaths.map((v) => (
-            <Image key={v} width="100%" objectFit="cover" src={v} alt={v} />
+            <Image
+              key={v.replace(/\/thumb\//, "/original/")}
+              width="100%"
+              objectFit="cover"
+              src={v}
+              alt={v}
+            />
           ))}
       </Box>
       <Flex padding="20px" alignItems="center">
